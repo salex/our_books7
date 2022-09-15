@@ -1,0 +1,71 @@
+/ div.w-full
+/   p style="color: green" = notice
+/   h1.font-bold.text-2xl Showing Entry
+
+/   div.flex.gap-8
+/     => link_to icon('fas fa-edit',"Edit Entry"), edit_entry_path(@entry), class:"#{btn_sm_green}"
+/     =< link_to icon('fas fa-list',"List Entries"), entries_path, class:"#{btn_sm_green}"
+/     = button_to icon('fas fa-trash',"Destroy Entry"), @entry, method: :delete, form:{data: { turbo_confirm: 'Are you sure?', turbo_method:'delete' }}, class:"#{btn_sm} bg-red-700 text-white"
+
+/   hr.border-1.border-blue-500.my-1
+/   == render @entry
+
+- splits = @entry.splits
+
+.flex.gap-8
+  div 
+    button[class="#{btn_sm_blue} m-2"] =  link_to 'Edit', edit_entry_path(@entry)
+    / .blue-link-button.m-2 = link_to 'Back', entries_path
+
+  div
+    div
+      strong Book:
+      = @entry.book.name
+    div
+      strong Numb:
+      = @entry.numb
+    div
+      strong Post date:
+      = @entry.post_date
+    div
+      strong Description:
+      = @entry.description
+    div
+      strong Fit:
+      = @entry.fit_id
+    div
+      strong Amount:
+      - @entry.set_attributes
+      = money @entry.amount
+
+table.gl-table
+  caption = "FIT_ID #{@entry.fit_id}"
+  thead
+    tr.header-row
+      td.font-bold.w-36 Date
+      td.font-bold.w-20 Numb &plusmn;
+      td.font-bold.w-1/4 Description
+
+      td.font-bold Transfers
+      td.font-bold R
+      td.font-bold Increase
+      td.font-bold Decrease
+      td.font-bold Amount
+  tbody id="entry"
+    tr.entry-row
+      td = @entry.post_date
+      td = @entry.numb
+      td = @entry.description
+      td[colspan="5"]
+    
+  tbody
+    - splits.each do |s|
+      tr
+        td = s.action
+        td  
+        td = s.memo
+        td = s.account.long_account_name
+        td = s.reconcile_state
+        td.text-right = to_money s.debit unless s.debit.zero?
+        td.text-right = to_money s.credit unless s.credit.zero?
+        td.text-right = s.amount

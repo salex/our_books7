@@ -1,0 +1,31 @@
+
+div
+  table.classic.w-full
+    tr
+      th.w-1/12 Post Date
+      th.w-1/12  Amount(p)
+      th.w-2/12 Name
+      th.w-3/12 Memo
+      th Entry Link/Action
+      th.w-1/12  Numb
+      th.w-1/12  FIT ID
+    - @transactions.each do |bt|
+      tr
+        td
+          = link_to bt.post_date, bank_transaction_path(bt.id),class:'blue-link'
+        td.text-right
+          = to_money(bt.amount)
+        td
+          = bt.name 
+        td
+          = bt.memo
+        td 
+
+          - if bt.entry_id.present?
+            = link_to bt.entry.description, entry_path(bt.entry_id),class:'blue-link font-bold'
+          - else
+            = render partial: 'bank_transactions/unlinked', locals: {bt:bt}
+        td
+          = bt.ck_numb
+        td
+          = bt.fit_id 

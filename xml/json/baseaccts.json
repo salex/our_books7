@@ -1,0 +1,11 @@
+[{"account_type":"ROOT","name":"Root Account","description":"Root Account","level":0,"parent_id":null,"id":1,"placeholder":true},
+{"account_type":"ASSET","name":"Assets","description":"Assets","level":1,"parent_id":1,"id":2,"placeholder":true},
+{"account_type":"ASSET","name":"Current Assets","description":"Assets:Current Assets","level":2,"parent_id":2,"id":3,"placeholder":false},
+{"account_type":"CASH","name":"Cash in Wallet","description":"Assets:Current Assets:Cash in Wallet","level":3,"parent_id":3,"id":4,"placeholder":false},
+{"account_type":"BANK","name":"Checking Account","description":"Assets:Current Assets:Checking Account","level":3,"parent_id":3,"id":5,"placeholder":false},
+{"account_type":"LIABILITY","name":"Liabilities","description":"Liabilities","level":1,"parent_id":1,"id":6,"placeholder":true},
+{"account_type":"CREDIT","name":"Credit Card","description":"Liabilities:Credit Card","level":2,"parent_id":6,"id":7,"placeholder":false},
+{"account_type":"INCOME","name":"Income","description":"Income","level":1,"parent_id":1,"id":8,"placeholder":true},
+{"account_type":"EXPENSE","name":"Expenses","description":"Expenses","level":1,"parent_id":1,"id":9,"placeholder":true},
+{"account_type":"EQUITY","name":"Equity","description":"Equity","level":1,"parent_id":1,"id":10,"placeholder":true},
+{"account_type":"EQUITY","name":"Opening Balances","description":"Equity:Opening Balances","level":2,"parent_id":10,"id":11,"placeholder":false}]

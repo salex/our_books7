@@ -1,0 +1,19 @@
+div
+  h5.h5 Upload Bank Transactions OFX file
+  div 
+    p Uploading Bank OFX files is a multi-stage process
+    ul 
+      li Choose a file from you downloads directory (or where stored)
+      li Click the 'Preview OFX Tranasctions' button which will upload the file and present a list bank transactions and a summary.
+      li If and bank tranasctions are new, click the button "Import OFX" to create new transactions
+      li = session[:latest_ofx_path]
+  .flex
+    = form_with url: :update_ofx_bank_transactions, method: :patch,data:{turbo:false,controller:'fileupload'} do |f|
+      .field
+        h5.h5 Pick OFX file
+        = f.file_field "ofx",data:{fileupload_target:"file",action:"change->fileupload#toggle"}
+
+      br
+      = submit_tag "Preview OFX Transactions", class:"#{btn_sm_green} hidden",data:{fileupload_target:"submit"}
+
+

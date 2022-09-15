@@ -1,0 +1,15 @@
+div.w-full
+  p style="color: green" = notice
+
+  h1.font-bold.text-2xl Users
+  = link_to link_to icon('fas fa-plus-square', "New User"), new_user_path,class:"#{btn_sm_blue}"
+  hr.border-1.border-blue-500.my-1
+
+  #users
+    - @users.each do |user|
+      == render user
+      = link_to icon('fas fa-eye',"Show User"), user,class:"#{btn_sm_green}"
+      = link_to icon('fas fa-edit',"Edit User"),  edit_user_path(user),class:"#{btn_sm_green}"
+
+      hr.border-1.border-blue-500.my-1
+

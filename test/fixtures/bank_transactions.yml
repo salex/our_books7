@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  book: one
+  client: one
+  entry: one
+  post_date: 2022-08-16
+  amount: 1
+  fit_id: MyString
+  ck_numb: MyString
+  name: MyString
+  memo: MyString
+
+two:
+  book: two
+  client: two
+  entry: two
+  post_date: 2022-08-16
+  amount: 1
+  fit_id: MyString
+  ck_numb: MyString
+  name: MyString
+  memo: MyString

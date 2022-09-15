@@ -1,0 +1,46 @@
+= form_with(model: @bank_statement) do |form|
+  - if @bank_statement.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(@bank_statement.errors.count, "error")} prohibited this bank_statement from being saved:"
+      ul
+        - @bank_statement.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.label :client_id
+    = form.hidden_field :client_id
+    span.mx-2 = @bank_statement.client_id
+
+  div
+    = form.label :book_id
+    = form.hidden_field :book_id
+    span.mx-2 = @bank_statement.book_id
+
+  div
+    = form.label :statement_date, style: "display: block"
+    / = form.date_field :statement_date
+    = form.date_field(:statement_date,data:{controller:'flatpickr'})
+
+
+  div
+    = form.label :beginning_balance, style: "display: block"
+    = form.number_field :beginning_balance
+
+  div
+    = form.label :ending_balance, style: "display: block"
+    = form.number_field :ending_balance
+
+  div
+    = form.label :summary, style: "display: block"
+    = form.text_area :summary
+
+  div
+    = form.label :reconciled_date, style: "display: block"
+    = form.date_field(:reconciled_date,data:{controller:'flatpickr'})
+
+  div
+    = form.label :ofx_data, style: "display: block"
+    = form.text_area :ofx_data
+
+  div[class="#{btn_submit}"]
+    = form.submit

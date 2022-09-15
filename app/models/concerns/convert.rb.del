@@ -1,0 +1,74 @@
+=begin
+  # Some Rack handlers (Thin, Rainbows!) implement an extended body object protocol, however,
+  # some middleware (namely Rack::Lint) will break it by not mirroring the methods in question.
+  # This middleware will detect an extended body object and will make sure it reaches the
+  # handler directly. We do this here, so our middleware and middleware set up by the app will
+  # still be able to run.
+  class ExtendedRack < Struct.new(:app)
+    def call(env)
+      result, callback = app.call(env), env['async.callback']
+      return result unless callback and async?(*result)
+      after_response { callback.call result }
+      setup_close(env, *result)
+      throw :async
+    end
+
+
+a = Account.all.as_json
+
+a = Account.all.as_json(except:[:uuid,:book_id,:created_at,:updated_at,:transfer,:leafs])
+
+File.write(Rails.root+"yaml/vfw.json",a.to_json)
+File.write(Rails.root+"yaml/e2014.json",e2014.to_json)
+
+
+accts = JSON.parse(File.read(Rails.root+"xml/json/vfw.json"))
+
+Entry.all.as_json(except:[:amount,:reconciled, :created_at,:updated_at,:book_id,:lock_version],
+  include:{splits: {except:[:created_at,:updated_at,:debit,:credit,:transfer,:lock_version]}})
+
+e2014 = Entry.where('extract(year  from post_date) = ?', 2014).as_json(include:[:splits])
+
+
+e2014 = Entry.where('extract(year  from post_date) = ?', 2014).as_json(except:[:amount,:reconciled, :created_at,:updated_at,:book_id,:lock_version],
+  include:{splits: {except:[:created_at,:updated_at,:debit,:credit,:transfer,:lock_version]}})
+...
+
+
+File.write(Rails.root+"yaml/entries.json",
+  Entry.all.as_json(except:[:amount,:reconciled, :created_at,:updated_at,:book_id,:lock_version],
+    include:{splits: {except:[:created_at,:updated_at,:debit,:credit,:transfer,:lock_version]}}).to_json)
+
+irb(main):1051:0> File.write(Rails.root+"xml/json/vfw.json",jaccts.to_json)
+=> 17122
+irb(main):1052:0> 
+irb(main):1053:0> 
+irb(main):1054:0> jaccts = @accounts.as_json(except:[:book_id, :contra,:client_id,:created_at,:updated_at,:code,:transfer,:leafs])
+=> [{"id"=>1, "name"=>"Root Account", "account_type"=>"ROOT", "description"=>"", "placeholder"=>true, "parent_id"=>nil, "level"=...
+irb(main):1055:0> File.write(Rails.root+"xml/json/vfw.json",jaccts.to_json)
+=> 15808
+
+
+=end
+
+
+module Convert
+  def self.import_entries(json_file,client_id,book_id)
+    entries = JSON.parse(File.read(Rails.root + "xml/json/#{json_file}"))
+
+    entries.each do |e|
+      splits = e.delete("splits")
+      e['client_id'] = client_id
+      e['book_id'] = book_id
+      Entry.create(e)
+      splits.each do |s|
+        s['client_id'] = client_id
+        Split.create(s)
+      end
+    end
+    ActiveRecord::Base.connection.reset_pk_sequence!('entries')
+    ActiveRecord::Base.connection.reset_pk_sequence!('splits')
+
+  end
+end
+

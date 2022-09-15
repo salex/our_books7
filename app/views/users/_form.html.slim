@@ -1,0 +1,49 @@
+= form_with(model: @user) do |form|
+  - if @user.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      ul
+        - @user.errors.each do |error|
+          li = error.full_message
+  .flex.flex-wrap.gap-4
+    div
+      div
+        = form.label "Client: " + "#{Current.client.name}", style: "display: block", class:'py-2'
+        = form.hidden_field :client_id
+
+      div
+        = form.label :email, style: "display: block"
+        = form.text_field :email
+
+      div
+        = form.label :username, style: "display: block"
+        = form.text_field :username
+
+      div
+        = form.label :full_name, style: "display: block"
+        = form.text_field :full_name
+      div
+        = form.label :default_book, style: "display: block"
+        = form.select( :default_book,options_for_select(Current.client.books.pluck(:name,:id),@user.default_book),
+          { include_blank: '-none-' })
+
+    div
+      div
+        = form.label :password, style: "display: block"
+        = form.password_field :password
+
+      div
+        = form.label :password_confirmation, style: "display: block"
+        = form.password_field :password_confirmation
+      .s4.w3-col
+        label Roles
+        - checkboxes = role_checkboxes(@user.roles)
+        - checkboxes.each do |b|
+          .m3.columns
+            = check_box_tag 'user[roles][]', b[0],b[1]
+            |&nbsp;
+            = b[0]
+
+
+      div[class="#{btn_submit}"]
+        = form.submit

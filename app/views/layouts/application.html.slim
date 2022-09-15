@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title
+      | Rbooks2
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    link rel="stylesheet" href="https://ga.jspm.io/npm:flatpickr@4.6.9/dist/flatpickr.min.css"
+    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    script crossorigin="anonymous" src="https://kit.fontawesome.com/69f9b59efd.js"
+    = javascript_importmap_tags
+
+  body
+    header.noprint.sticky.top-0.z-20
+      == render 'layouts/header'
+
+    main class="mx-5 "
+      == yield

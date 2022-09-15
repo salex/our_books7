@@ -1,0 +1,104 @@
+.grid.grid-cols-12.bg-malt.text-white.py-2.font-bold.print:hidden
+  .col-span-2
+    / span= image_tag("favicon.ico",size:24,class:'inline')
+    span.indent.small-caps.strong &nbsp;OurBooks
+  .col-span-4
+    .flex.justify-center
+      span.small-caps  Doing More For Semi-Accountants
+  .col-span-6
+    - if Current.user.present?
+      .flex.gap-8.float-right.mx-4
+        span.px-2 = Current.client.name + ": " + session[:full_name]
+        span.px-2.hover:bg-blue-300.hover:text-black.text-blue-300.text-lg = link_to "Profile", profile_path
+        span.px-2.hover:bg-blue-300.hover:text-black.text-blue-300.text-lg = link_to "Logout", logout_path
+
+    - else
+      span.float-right = link_to "Login", login_path,
+        class:"hover:bg-gray-300 inline-block px-3 mx-3 text-blue-300 hover:text-black"
+      
+
+div.print:hidden
+  .grid.grid-cols-12.pt-1.gap-8.bg-black.text-white.font-bold.text-lg
+    - if Current.user.blank?
+
+      div.col-span-5
+        = link_to "Home", root_path, class:"hover:bg-gray-300 inline-block h-8 px-3 hover:text-black"
+
+        = link_to "About",about_path, class:"hover:bg-gray-300 inline-block h-8 px-3 hover:text-black"
+
+      div.col-span-7.
+        - flash.each do |name, msg|
+          - if msg.is_a?(String)
+            .flash-box.w3-padding.w3-animate-right[
+              data-controller="flashit" 
+              data-flashit-target="flashBox" 
+              class="#{name.to_s == 'notice' ? 'text-green-400' : 'text-red-400'}"]
+              = content_tag :span, content_tag(:strong,msg)
+    - else
+      div.col-span-6
+        = link_to "Home", root_path, class:"hover:bg-gray-300 inline-block h-8 px-3 mr-2 hover:text-black"
+        / = link_to "Books",books_path, class:"hover:bg-gray-300 inline-block h-8 px-3 hover:text-black"
+
+        = link_to "Books",books_path, class:"hover:bg-gray-300 inline-block h-8 px-3 mr-2 hover:text-black"
+
+        = link_to "Accounts",accounts_path, class:"hover:bg-gray-300 inline-block h-8 px-3 mr-2 hover:text-black"
+        / = link_to "Report",reports_path, class:"hover:bg-gray-300 inline-block h-8 px-3 hover:text-black"
+        .w3-dropdown-hover
+          button.w3-button.px-3
+           | Links&nbsp;&nbsp;&nbsp;
+           i.fa.fa-caret-down
+          .w3-dropdown-content.w3-card-4.w2in
+            = link_to "Bank Statements", bank_statements_path, class:"block gbtn " 
+            / = link_to "Bank(OFX) Trans", '#', class:"block gbtn" 
+            = link_to "Checking Balance",checking_balance_reports_path , class:"block gbtn"
+            = link_to "Reports", reports_path, class:"block gbtn" 
+            = link_to "Entry Search",entries_filter_index_path, class:"block gbtn" 
+            = link_to "About", about_path, class:"block gbtn" 
+            - if Current.user.is_super? || Current.user.is_admin?
+              = link_to "Users", users_path, class:"block gbtn" 
+            - if Current.user.is_super? 
+              = link_to "Clients", clients_path, class:"block gbtn" 
+
+        - if Current.client.name.include?('VFW')
+          = link_to "VFW",vfw_post_index_path, class:"hover:bg-gray-300 inline-block h-8 px-3 mr-2 hover:text-black"
+
+        / .relative.inline-block
+        /   button[class="peer px-5 hover:bg-gray-600 text-white"] 
+        /     | Dropdown&nbsp;&nbsp;
+        /     i.fa.fa-caret-down
+
+        / .relative.inline-block
+        /   button[class="peer px-5 hover:bg-gray-300 hover:text-black text-white"] 
+        /     | Dropdown&nbsp;&nbsp;
+        /     i.fa.fa-caret-down
+
+        /   div[class="hidden absolute z-10 peer-hover:flex hover:flex w-[200px] text-black bg-white flex-col w3-card-4"]
+        /     a.px-5.gbtn.hover:bg-gray-200[href="#"] About Us
+        /     a.px-5.gbtn.hover:bg-gray-200[href="#"] Contact Us
+        /     a.px-5.gbtn.hover:bg-gray-200[href="#"] Privacy Policy
+
+        / .relative.inline-block
+        /   button[class="peer px-5 hover:bg-gray-600 text-white"] 
+        /     | Dropdown&nbsp;&nbsp;
+        /     i.fa.fa-caret-down
+        /   div[class="hidden absolute z-10 peer-hover:flex hover:flex w-[200px] flex-col text-black bg-white drop-shadow-lg"]
+        /     a.px-5.block.py-1.gbtn.hover:bg-gray-200[href="#"] About Us
+        /     a.px-5.block.py-1.gbtn.hover:bg-gray-200[href="#"] Contact Us
+        /     a.px-5.block.py-1.gbtn.hover:bg-gray-200[href="#"] Privacy Policy
+
+      div.col-span-4.
+        - flash.each do |name, msg|
+          - if msg.is_a?(String)
+            .flash-box.w3-padding.w3-animate-right[
+              data-controller="flashit" 
+              data-flashit-target="flashBox" 
+              class="#{name.to_s == 'notice' ? 'text-green-400' : 'text-red-400'}"]
+              = content_tag :span, content_tag(:strong,msg)
+
+- if session[:recent].present?
+  .div.bg-black.text-white.font-bold.text-lg.print:hidden
+    span &nbsp; Recent Ledgers: &nbsp
+    - session[:recent].each do |k,v|
+     = link_to v,account_path(k),class:'gold-link-button text-black' 
+
+

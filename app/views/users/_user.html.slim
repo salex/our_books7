@@ -1,0 +1,22 @@
+div id="#{dom_id user}"
+  p
+    strong.w-40.inline-block.text-right Client:
+    =< user.client_id
+  p
+    strong.w-40.inline-block.text-right Email:
+    =< user.email
+  p
+    strong.w-40.inline-block.text-right Username:
+    =< user.username
+  p
+    strong.w-40.inline-block.text-right Full name:
+    =< user.full_name
+  p
+    strong.w-40.inline-block.text-right Roles:
+    =< user.roles
+  p
+    strong.w-40.inline-block.text-right Default book:
+    =< user.default_book
+  / p
+  /   strong.w-40.inline-block.text-right Password digest:
+  /   =< user.password_digest

@@ -1,0 +1,34 @@
+div id="#{dom_id bank_statement}"
+  .flex.gap-8
+    div
+      p
+        strong.w-40.inline-block.text-right Client:
+        =< bank_statement.client_id
+      p
+        strong.w-40.inline-block.text-right Book:
+        =< bank_statement.book_id
+    div 
+      p
+        strong.w-40.inline-block.text-right Statement date:
+        =< bank_statement.statement_date
+      p
+        strong.w-40.inline-block.text-right Beginning balance:
+        =< bank_statement.beginning_balance
+    div
+      p
+        strong.w-40.inline-block.text-right Ending balance:
+        =< bank_statement.ending_balance
+      p
+        strong.w-40.inline-block.text-right Reconciled date:
+        =< bank_statement.reconciled_date
+
+    div.w-1/3
+      p
+        strong.w-40.inline-block.text-right Summary:
+        =< bank_statement.summary
+    
+  / p
+  /   strong.w-40.inline-block.text-right Ofx data:
+  /   p= text_area_tag(nil,@bank_statement.ofx_data, class:"w-1/3")
+h5.h5 Bank Tranactions 
+= render template: "bank_statements/transactions"

@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client: one
+  book: one
+  statement_date: 2022-08-17
+  beginning_balance: 1
+  ending_balance: 1
+  summary: MyText
+  reconciled_date: 2022-08-17
+  ofx_data: MyText
+
+two:
+  client: two
+  book: two
+  statement_date: 2022-08-17
+  beginning_balance: 1
+  ending_balance: 1
+  summary: MyText
+  reconciled_date: 2022-08-17
+  ofx_data: MyText

@@ -1,0 +1,37 @@
+h4.h4 Setup a New Book/Accounts Using Templates
+.grid.grid-cols-2.gap-8
+  .col-span-1 
+    h6.h6 Instructions
+    p You have the option of creating you own Book of Account, use one of several templates, or clone the current book. 
+    p There are currently 4 templates available. The first three are patterned ofter GNU Cash templates.
+    ul 
+      li <strong>Base Accounts.</strong>  Creates the Root account and level 1 children (Assets, Liabilities, Income, Expenses, Equity). It then adds a few optional children accounts Assets => (Current Assets => [Cash in Wallet, Checking Accout] and Liabilities => Credit Card)
+      ul
+        li After accounts are created your can add/remove any of the accounts
+    ul 
+      li <strong>Business Accounts.</strong> Creates the Root account and level 1 children, then adds common business accounts
+    ul 
+      li <strong>Common (home) Accounts.</strong>  Creates the Root account and level 1 children, then adds common home accounts.
+    ul 
+      li <strong>Non-Profit Accounts.</strong>  Creates the Root account and level 1 children, then adds common Non-Profit accounts. This template was patterned after a VFW Post that runs some form of a business (e.g., Bar or Canteen)
+    p If the Current.book is set, you can clone the current book. (maybe close book?)
+
+  .col-span-1
+    h6.h6 Templates
+
+    p Select one of the below template by clicking on the button to get a preview of what accounts will be created. The preview page will allow you to create those accounts.
+    P Again, you can modify the created book of account to your needs very easily before you add any transactions/entries.
+    ul
+      li.m-1 = link_to "Base Accounts", books_setup_preview_path(setup_id:"baseaccts"), class:"#{btn_sm_green} w-64 font-bold"
+      li.m-1 = link_to "Business Accounts", books_setup_preview_path(setup_id:"bizzaccts"), class:"#{btn_sm_green} w-64 font-bold"
+      li.m-1 = link_to "Common Accounts", books_setup_preview_path(setup_id:"commaccts"), class:"#{btn_sm_green} w-64 font-bold"
+      li.m-1 = link_to "Non-Profit (VFW) Accounts", books_setup_preview_path(setup_id:"vfw"), class:"#{btn_sm_green} w-64 font-bold"
+    h6.h6 Clone Current Book
+
+    - if Current.book.present?
+
+     ul 
+      li.m1 = link_to "Clone Current Book", books_setup_preview_path(setup_id:"clone"), class:"#{btn_sm_blue} w-64 font-bold"
+    - else
+      p.font-bold There is no Current Book set
+

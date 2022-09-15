@@ -1,0 +1,79 @@
+=turbo_frame_tag "entries"
+  div.flex.gap-8
+    div
+      span.ml-4
+        strong Bank Balance->
+      span.ml-4
+        strong Begin: 
+        = to_money(@reconcile.bank_beginning_balance)
+      span.ml-4
+        strong End: 
+        = to_money(@reconcile.bank_ending_balance)
+    div
+      span.ml-4
+        strong Checkbook Balance->
+      span.ml-4
+        strong Begin: 
+        = to_money(@reconcile.checking_beginning_balance)
+      span.ml-4
+        strong End: 
+        = to_money(@reconcile.checking_ending_balance)
+    div.float-right
+      span.float-right
+        strong Closing Date:
+        = @reconcile.closing_date
+
+  .flex.gap-8
+    div
+      - test_balance = @reconcile.checking_ending_balance  -  @reconcile.uncleared_balance - @reconcile.range_reconciled_balance
+      - difference = test_balance - @reconcile.bank_ending_balance
+
+      .strong =  "Balances (Checkbook  + Uncleared + Reconciled - Bank)  = Difference "
+      .annotate Reconciled balance only applies to bank statements that have already been reconciled.
+      .strong=  "Balances (#{to_money @reconcile.checking_ending_balance} + (#{to_money @reconcile.uncleared_balance*-1}) + (#{to_money @reconcile.range_reconciled_balance*-1}) - #{to_money @reconcile.bank_ending_balance})  = #{to_money difference} "
+    div
+        - if difference.zero? && Date.current >= @bank_statement.statement_date
+          button  = link_to 'Reconcile', update_reconcile_bank_statement_path(@bank_statement, turbo_frame: "_top"),class:"#{btn_lg_green} font-bold text-lg"
+        - else
+          .font-bold.annotate.text-red-700 Balance is either not zero or current date is less than the closing date
+  hr.border-1.border-blue-500.my-1
+
+  .grid.grid-cols-2.gap-8
+    div.col-span-1
+      / p.wrap
+      /   strong Cleared Balance:
+      /   = to_money(@reconcile.cleared_balance)
+
+      table.classic.w-full
+        caption.strong =  "Cleared Checking Transactions - Balance: #{to_money(@reconcile.cleared_balance)}"
+        - @reconcile.cleared_entries.each do |x|
+          tr
+            td.w-28 = x.post_date
+            td.goldey.w-6.text-center  = button_to(x.reconciled,
+              unclear_splits_bank_statement_path(x))
+            td = x.numb
+            td = x.description
+            td.tright = to_money(x.amount)
+
+      p.wrap
+        strong Cleared Balance:
+        = to_money(@reconcile.cleared_balance)
+
+    div.col-span-1
+      / p.wrap
+      /   strong Uncleared Balance:
+      /   = to_money(@reconcile.uncleared_balance)
+
+      table.classic.w-full
+        caption.strong =  "Uncleared Checking Transactions - Balance: #{to_money(@reconcile.uncleared_balance)}"
+        - @reconcile.uncleared_entries.each do |x|
+          / -sum += x.amount 
+          tr
+            td.w-28 = x.post_date
+            td.goldey.w-6.text-center  = button_to(x.reconciled,
+              clear_splits_bank_statement_path(x))
+            td = x.numb
+            td = x.description
+            td.tright = to_money(x.amount)
+
+     

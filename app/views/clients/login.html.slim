@@ -1,0 +1,23 @@
+div[data-controller="blueBackground"]
+  .m-4.grid.justify-items-stretch
+    .p-4.bg-white.w-1/3.justify-self-center = form_tag signin_clients_path do
+      h5.font-bold.text-lg.malt Login
+      .row
+        .small-2.columns &nbsp;
+        .form-inputs.small-4.columns
+          / = hidden_field_tag(group_id:current_group.id)
+          / - remember_me = "remember_me_#{current_group.id}".to_sym
+          .flabel
+            = label_tag(:email, 'eMail or Username')
+            / - uname = params[:email].present? ? params[:email] : cookies[remember_me]
+          .ffield = text_field_tag( :email)
+          .f.label= label_tag( :password)
+          .ffield= password_field_tag( :password)
+          br
+          button[class="#{btn_submit} bg-blue-700"]= submit_tag( "Login",class:'button small')
+          |&nbsp;
+          span.indent2
+            / = check_box_tag(remember_me,1,cookies[remember_me].present?)
+            / |&nbsp;Remember Me
+            / / .indent2 = link_to "Forgot Password",forgot_password_users_path
+        .small-6.columns &nbsp;

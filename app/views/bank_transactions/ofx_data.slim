@@ -1,0 +1,44 @@
+- summary = get_summary(@acct)
+div.flex.gap-8
+  -summary.each_pair do |k,v|
+    div 
+      div.font-bold = k 
+      div = v 
+- can_create = false
+table.classic.w-full
+    tr
+      th.w-1/12 Post Date
+      th.w-1/12  Amount
+      th.w-2/12 Name
+      th.w-3/12 Memo
+      th Link
+      th.w-1/12  Numb
+      th.w-1/12  FIT ID
+    - @acct.transactions.each do |a|
+      tr
+        td
+          = a.posted_at.to_date
+        td.text-right 
+          = to_money(a.amount_in_pennies)
+        td
+          = a.name 
+        td
+          = a.memo
+        - if Current.book.bank_transactions.find_by(fit_id:a.fit_id).present?
+          td Transaction Exits
+        -else
+          td Transaction will be created
+          - can_create = true
+        td 
+          = a.check_number
+        td 
+          = a.fit_id 
+- if can_create
+  = form_with url: import_ofx_bank_transactions_path, method: :patch,data:{turbo:false} do |f|
+    = f.hidden_field :ofx ,value: @ofx_data
+    = f.submit "Import New Transactions", class:"#{btn_sm_blue}"
+- else
+  h5.h5 All bank transactions have been imported
+  div balance
+  div = @acct.balance.amount_in_pennies
+

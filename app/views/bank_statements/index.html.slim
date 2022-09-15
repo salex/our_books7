@@ -1,0 +1,47 @@
+div.w-full
+  p style="color: green" = notice
+
+  h1.font-bold.text-2xl Bank Statements and Transactions
+  = link_to link_to icon('fas fa-plus-square', "New Bank statement"), new_bank_statement_path,class:"#{btn_sm_blue}"
+
+  #bank_statements
+    table.classic.w-full
+      tr
+        th Statement DT
+        th Beginning Bal
+        th Ending Bal
+        th Reconciled DT
+        / th Summary
+        th Actions
+
+      - @bank_statements.each do |bank_statement|
+        tr
+          td = bank_statement.statement_date
+          td = bank_statement.beginning_balance
+          td = bank_statement.ending_balance
+          td = bank_statement.reconciled_date
+          / td = bank_statement.summary
+          td.actions
+            = link_to bank_statement do
+              i class="fas fa-eye"
+              span Transactions
+            = link_to edit_bank_statement_path(bank_statement) do
+              i class="fas fa-edit"
+            - unless bank_statement.reconciled_date.present?
+              = link_to upload_ofx_bank_transactions_path(bs_id:bank_statement.id) do
+                i[aria-hidden="true" class="fa fa-upload"]
+                span Upload
+            = link_to '<i class="far fa-credit-card" aria-hidden="true">Reconcile</i>'.html_safe, reconcile_bank_statement_path(bank_statement) unless bank_statement.reconciled_date.present?
+            / = destroyConfirmTag(bank_statement,
+            /   klass:"inline-block", 
+            /   prompt:tag.i(class:"fas fa-trash w3-text-red"))
+
+          / td 
+
+
+          /   = link_to icon('fas fa-eye',"Show"), bank_statement,class:"#{btn_sm_green}"
+          /   = link_to icon('fas fa-edit',"Edit"),  edit_bank_statement_path(bank_statement),class:"#{btn_sm_green}"
+          /   = link_to icon('fas fa-edit',""),  transactions_bank_statement_path(bank_statement),class:"#{btn_sm_green}"
+
+      hr.border-1.border-blue-500.my-1
+

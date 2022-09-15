@@ -1,0 +1,10 @@
+div.w-full
+  h1.font-bold.text-2xl Editing Account
+  div.flex.gap-8
+    = link_to icon('fas fa-eye',"Show Account"), edit_account_path(@account), class:"#{btn_sm_green}"
+    = link_to icon('fas fa-list',"List Accounts"), 
+      accounts_path, class:"#{btn_sm_green}"
+    = button_to icon('fas fa-trash',"Destroy Account"), @account, method: :delete, form:{data: { turbo_confirm: 'Are you sure?', turbo_method:'delete' }}, class:"#{btn_sm} bg-red-700 text-white"
+
+  hr.border-1.border-blue-500.my-1
+  == render "form", account: @account

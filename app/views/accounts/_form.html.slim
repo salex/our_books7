@@ -1,0 +1,55 @@
+= form_with(model: @account) do |form|
+  - if @account.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(@account.errors.count, "error")} prohibited this account from being saved:"
+      ul
+        - @account.errors.each do |error|
+          li = error.full_message
+
+  .flex.gap-8
+    div
+
+      div
+        = form.label :book_id, style: "display: block"
+        = form.hidden_field :book_id
+        div = Current.book.id
+
+      div
+        = form.label :name, style: "display: block"
+        = form.text_field :name
+
+      div
+        = form.label :account_type, style: "display: block"
+        = form.select :account_type,options_for_select(ACCT_TYPES,@account.account_type),prompt:'Select'
+      div
+        = form.label :code, style: "display: block"
+        = form.text_field :code
+
+      div
+        = form.label :description, style: "display: block"
+        = form.text_field :description
+    div
+      div
+        = form.label :placeholder, style: "display: block"
+        = form.check_box :placeholder
+
+      div
+        = form.label :contra, style: "display: block"
+        = form.check_box :contra
+
+      div
+        = form.label :parent_id, style: "display: block"
+        = form.hidden_field :parent_id
+        div = @account.parent_id
+
+      div
+        = form.label :level, style: "display: block"
+        = form.number_field :level
+
+      div
+        = form.label :client_id, style: "display: block"
+        = form.hidden_field :client_id
+        div = @account.client_id
+
+      div[class="#{btn_submit}"]
+        = form.submit

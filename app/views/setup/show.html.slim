@@ -1,0 +1,41 @@
+div.w-full
+  p style="color: green" = notice
+
+  / = link_to link_to icon('fas fa-plus-square', "New Account"), new_account_path,class:"#{btn_sm_blue}"
+  / = link_to 'Root Accounts View', accounts_path, class: ["#{btn_sm_green}"]
+  / span.italic Groups Accounts by Roots accounts
+  h6 Do you want to create this book of accounts?
+  = link_to icon('fas fa-list',"Cancel"), books_setup_index_path, class:"#{btnWarn} mr-4"
+  = link_to icon('fas fa-plus-square',"Create Book/Accounts"), books_setup_create_path, class:"#{btnSuccess}"
+
+
+  hr.border-1.border-blue-500.my-1
+
+
+  div
+    h3.h4 = "Accounts Preview(#{params[:setup_id]})"
+ 
+    table.classic.w-full
+      thead
+        tr
+          th Name
+          th Type
+          th Lev
+          th Id
+          th PID
+          th Code
+          th Description
+          th Placeholder
+
+      tbody
+        - @accounts.each do |account|
+          tr
+            td class="p#{account[:level]}" = account[:name]
+            td = account[:account_type]
+            td = account[:level]
+            td = account[:id] 
+            td = account[:parent_id]
+            td = account[:code]
+            td = account[:description]
+            td = account[:placeholder]
+                   

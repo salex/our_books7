@@ -1,0 +1,50 @@
+= form_with(model: @client) do |form|
+  - if @client.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(@client.errors.count, "error")} prohibited this client from being saved:"
+      ul
+        - @client.errors.each do |error|
+          li = error.full_message
+  .flex.gap-8
+    div
+      div
+        = form.label :name, style: "display: block"
+        = form.text_field :name
+
+      div
+        = form.label :acct, style: "display: block"
+        = form.text_field :acct
+      div
+        = form.label :subdomain, style: "display: block"
+        = form.text_field :subdomain
+
+      div
+        = form.label :domain, style: "display: block"
+        = form.text_field :domain
+      div
+        = form.label :settings, style: "display: block"
+        = form.text_area :settings
+
+    div
+      div
+        = form.label :address, style: "display: block"
+        = form.text_field :address
+
+      div
+        = form.label :city, style: "display: block"
+        = form.text_field :city
+
+      div
+        = form.label :state, style: "display: block"
+        = form.text_field :state
+
+      div
+        = form.label :zip, style: "display: block"
+        = form.text_field :zip
+
+      div
+        = form.label :phone, style: "display: block"
+        = form.text_field :phone
+
+      div[class="#{btn_submit}"]
+        = form.submit

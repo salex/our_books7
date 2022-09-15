@@ -1,0 +1,31 @@
+/ This is only called/rendered if a bt (bank_transaction) does not have a 
+/ entry_id link
+
+/ It will call bt.set_unlinked_options which will return a hash 
+/ options = {ck_numb:[],amt:[]}  and will only set one option or no option which
+/ will then result in creating a new entry or duplicating an entry with
+/ the transaction attribuites
+
+turbo-frame-tag id="transaction-#{bt.id}"
+  / - puts "IS IT ALL UNLINKED #{@unlinked}"
+  / maybel call a differnt unlink that looks for amt
+  - opt = bt.set_unlinked_options
+  .relatively 
+    button[class="peer px-5 py-1 bg-green-600 hover:bg-green-700 text-white w-full"] Check Entry Link Options
+    div[class="hidden absolute z-10 p-2 shadow-lg peer-hover:flex hover:flex w-1/3 flex-col bg-white drop-shadow-lg"]
+      - opt[:ck_numb].each do |e|
+        / creates link to link bt to an entry There should only be one
+        / unless you have duplicate check numbers (ERROR)
+        = link_to("C #{bt.ck_numb} $ #{to_money(bt.amount)} #{e.description[0..20]} #{e.post_date}",link_entry_path(id:e.id,fit_id:bt.fit_id), class:" inline-block #{btn_sm_green} ml-0 p-2 w-full ")
+
+      - opt[:amt].each do |e|
+        / creates link(s) to entries where the checking account splits sum
+        / match the bt amount. There can be multiple to choose from
+        = link_to("$ #{to_money(bt.amount)} #{e.description[0..20]} #{e.post_date}",link_entry_path(id:e.id,fit_id:bt.fit_id), class:"px-5 inline-block py-1  #{btn_sm_green} ml-0 mb-1 p-2 w-full")
+
+      - if opt[:ck_numb].blank? && opt[:amt].blank?
+        / if there are no chk_num or amt selected
+        / it give you a choice of an new entry or call ann autopicker to 
+        / search for entry description (e.g repeating transactions)
+        = link_to( "NewEntry", new_bt_entry_path(id:bt.fit_id,amount:bt.amount,date:bt.post_date.to_date,description:bt.name,memo:bt.memo,numb:bt.ck_numb),class:"#{btn_sm_green}  w-full ml-0 mb-1 p-2 text-center")
+        = render partial:'shared/ofx_picker', locals:{bt:bt}

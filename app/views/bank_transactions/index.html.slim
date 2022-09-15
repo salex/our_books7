@@ -1,0 +1,15 @@
+div.w-full
+  p style="color: green" = notice
+
+  h1.font-bold.text-2xl Bank transactions
+  = link_to link_to icon('fas fa-plus-square', "New Bank transaction"), new_bank_transaction_path,class:"#{btn_sm_blue}"
+  hr.border-1.border-blue-500.my-1
+
+  #bank_transactions
+    - @bank_transactions.each do |bank_transaction|
+      == render bank_transaction
+      = link_to icon('fas fa-eye',"Show Bank transaction"), bank_transaction,class:"#{btn_sm_green}"
+      = link_to icon('fas fa-edit',"Edit Bank transaction"),  edit_bank_transaction_path(bank_transaction),class:"#{btn_sm_green}"
+
+      hr.border-1.border-blue-500.my-1
+
