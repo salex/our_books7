@@ -1,8 +1,19 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.1"
 
-set :application, "my_app_name"
-set :repo_url, "git@example.com:me/my_repo.git"
+set :application, "our_books"
+set :repo_url,  "ssh://post@stevealex.us:8611/home/post/repo/our_books.git"
+Default branch is :main
+
+# add from past hitory
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, File.read('.ruby-version').strip
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+
+# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :linked_dirs, fetch(:linked_dirs, []).concat(%w{log tmp/pids tmp/cache tmp/sockets vendor/bundle})
+
+set :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
