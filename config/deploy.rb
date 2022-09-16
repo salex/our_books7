@@ -3,7 +3,6 @@ lock "~> 3.17.1"
 
 set :application, "our_books"
 set :repo_url,  "ssh://post@stevealex.us:8611/home/post/repo/our_books.git"
-Default branch is :main
 
 # add from past hitory
 set :rbenv_type, :user # or :system, depends on your rbenv setup
