@@ -61,7 +61,7 @@
 #   }
 
 # server "staging.local", user: "developer", roles: %w{app db web}
-server "stevealex.us", user: "developer", roles: %w{app db web}
+server "staging.local", user: "developer", roles: %w{app db web}
 
 set :user,            'developer'
 set :pty,             true
