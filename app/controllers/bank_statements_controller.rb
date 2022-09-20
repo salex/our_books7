@@ -20,7 +20,8 @@ class BankStatementsController < ApplicationController
 
   # GET /bank_statements/new
   def new
-    last_statement = current_book.bank_statements.where.not(reconciled_date:nil).order(:reconciled_date).last
+    # puts "WHY IS CURRENT_BOOL #{current_book}"
+    last_statement = Current.book.bank_statements.where.not(reconciled_date:nil).order(:reconciled_date).last
     bb = 0
     if last_statement.present?
       next_month = last_statement.statement_date.end_of_month + 1.day
@@ -29,13 +30,13 @@ class BankStatementsController < ApplicationController
     else
       statement_range = Ledger.statement_range(Date.today)
     end
-    @bank_statement = current_book.bank_statements.new(statement_date:statement_range.last,beginning_balance:bb,ending_balance:0)
+    @bank_statement = Current.book.bank_statements.new(statement_date:statement_range.last,beginning_balance:bb,ending_balance:0)
   end
 
   # POST /bank_statements
   # POST /bank_statements.json
   def create
-    @bank_statement = current_book.bank_statements.new(bank_statement_params)
+    @bank_statement = Current.book.bank_statements.new(bank_statement_params)
 
     respond_to do |format|
       if @bank_statement.save

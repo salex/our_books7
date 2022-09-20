@@ -65,7 +65,7 @@ class ReportsController < ApplicationController
 
 
   def split_unclear
-    entry = current_book.entries.find(params[:id])
+    entry = Current.book.entries.find(params[:id])
     splits = entry.splits.where(reconcile_state:'c')
     splits.update_all(reconcile_state:'n')
     @checking_balance = Bank.new(params[:closing_date],params[:closing_balance]).checkbook_balance
@@ -76,7 +76,7 @@ class ReportsController < ApplicationController
 
   end
   def split_clear
-    entry = current_book.entries.find(params[:id])
+    entry = Current.book.entries.find(params[:id])
     splits = entry.splits.where(reconcile_state:'n')
     splits.update_all(reconcile_state:'c')
     @checking_balance = Bank.new(params[:closing_date],params[:closing_balance]).checkbook_balance
@@ -97,12 +97,12 @@ class ReportsController < ApplicationController
   private
 
   def require_book
-    redirect_to(books_path, alert:'Current Book is required') if current_book.blank?
+    redirect_to(books_path, alert:'Current Book is required') if Current.book.blank?
     @book = Current.book
   end
 
   def set_account
-    @account = current_book.accounts.find_by(id:params[:account])
+    @account = Current.book.accounts.find_by(id:params[:account])
     redirect_to( accounts_path, alert:'Account not found for Current Book') if @account.blank?
   end
 

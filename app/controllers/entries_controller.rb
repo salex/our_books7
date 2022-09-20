@@ -98,9 +98,8 @@ class EntriesController < ApplicationController
   end
 
   def link
-    puts "got her #{params.inspect}"
     # authorize Entry, :trustee?
-    entry = current_book.entries.find_by(id:params[:id])
+    entry = Current.book.entries.find_by(id:params[:id])
     if entry.blank?
       redirect_to latest_ofxes_path, alert:  "ERROR Entry to link to was not found!."
       #this should not happen, but just in case
@@ -115,10 +114,7 @@ class EntriesController < ApplicationController
   end
 
   def new_bt
-    # authorize Entry, :trustee?
-    # account = current_book.accounts.new
-    # @options  = current_book.settings[:acct_sel_opt]
-    @entry = current_book.entries.new(post_date:params[:date],
+    @entry = Current.book.entries.new(post_date:params[:date],
       fit_id:params[:id], numb:params[:check_number],
       description:params[:memo])
     amt = (params[:amount].to_i).abs
