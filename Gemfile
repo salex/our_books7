@@ -82,7 +82,7 @@ gem 'slim-rails'
 gem 'activerecord_where_assoc', '~> 1.0'
 gem 'prawn'
 gem 'prawn-table'
-gem 'ofx', '~> 0.3.2' , github: 'annacruz/ofx', branch: 'main'
+gem 'ofx', '~> 0.3.3' , github: 'annacruz/ofx', branch: 'main'
 gem 'acts_as_tenant'
 
 
