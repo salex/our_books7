@@ -51,6 +51,11 @@ development:
   #   log, notice, warning, error, fatal, and panic
   # Defaults to warning.
   #min_messages: notice
+staging:
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: our_books_staging
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
