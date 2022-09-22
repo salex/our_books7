@@ -13,7 +13,7 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 set :linked_dirs, fetch(:linked_dirs, []).concat(%w{log tmp/pids tmp/cache tmp/sockets vendor/bundle})
 
 set :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
-set :puma_systemctl_user, fetch(:user)
+# set :puma_systemctl_user, fetch(:user)
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
