@@ -37,27 +37,6 @@ module AccountsHelper
     }.html_safe
   end
 
-
-  # def summary_list(root,p=0)
-  #   if params[:tree].present?
-  #     return acct_tree(root)
-  #   end
-  #   html = content_tag(:div, class: 'pl-row') {
-  #     ul_contents = ""
-  #     # ul_contents << content_tag(:div, link_to(root.name,account_checkbooks_path(guid:root.guid)), class:"col-acct p#{p}")
-  #     ul_contents << content_tag(:span, link_to(root.name,account_path(root)), class:"inline-block w1in p#{p}")
-  #     ul_contents << concat(content_tag(:span,node_balance(root),class: "inline-block w1in text-right "))
-
-  #     # ul_contents << content_tag(:div,node_balance(root),class:'pl-summary')
-  #     p +=1
-  #     root.children.each do |child|
-  #       ul_contents << summary_list(child,p)
-  #     end
-  #     p -= 1
-  #     ul_contents.html_safe
-  #   }.html_safe
-  # end
-
   def acct_tree(root,p=0)
     html = content_tag(:div, class: 'pl-row') {
       ul_contents = ""

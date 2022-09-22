@@ -1,4 +1,6 @@
-.flex.gap-4[data-controller="rangepicker" data-date="#{Date.today.to_s}"]
+div[data-controller="blueBackground"]
+
+.flex.gap-4.bg-white.my-2.p-2[data-controller="rangepicker" data-date="#{Date.today.to_s}"]
   div.w-1/3
     h5.h5 Classic Accounting Reports
     p.m-2 Most reports have default options (from-to Dates,level,etc), but you can change those options using the filters provided.
@@ -8,7 +10,6 @@
       .gbtn.w100[data-action="click->rangepicker#selectCombo" data-url="#{summary_reports_path}"] Summary & P&L Combo
       .gbtn.w100[data-action="click->rangepicker#selectPL " data-url="#{profit_loss_reports_path}"] Profit/Loss
       .gbtn.w100[data-action="click->rangepicker#selectPL " data-url="#{trial_balance_reports_path}"] Trial Balance
-    / button.w3-btn.malty = link_to "VFW Reports",vfw_index_path
  
   div.w-2/3
     .strong Date Filtering
