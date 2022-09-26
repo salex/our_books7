@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.0.1"
+ruby "3.1.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"
@@ -82,7 +82,7 @@ gem 'slim-rails'
 gem 'activerecord_where_assoc', '~> 1.0'
 gem 'prawn'
 gem 'prawn-table'
-gem 'ofx', '~> 0.3.3' , github: 'annacruz/ofx', branch: 'main'
+gem 'ofx' #, '~> 0.3.4' , github: 'annacruz/ofx', branch: 'main'
 gem 'acts_as_tenant'
 
 

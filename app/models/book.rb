@@ -14,45 +14,48 @@ class Book < ApplicationRecord
   attribute :acct_transfers
   attribute :acct_placeholders
   attribute :checking_ids
+  
 
   after_initialize :set_attributes
   
-  #helpers to set or get attributes/settings
-  def acct_tree_ids
-    unless self.settings.blank?
-      self.acct_transfers.keys 
-    end
-  end
-
-  # def acct_transfer(id)
-  #   unless self.settings.blank?
-  #     self.acct_transfers(id.to_s)
-  #   end
-  # end
-
-  def acct_sel_opt
-    unless self.settings.blank?
-      self.acct_transfers.map{|k,v| [v,k]}.prepend(['',0])
-    end
-  end
-
-
-
-  def acct_sel_opt_rev
-    unless self.settings.blank?
-      self.acct_sel_opt.select{|i| i  unless self.acct_placeholders.include?(i[1])}.
-        map{|i|[ i[0].
-        split(':').reverse.join(':'),i[1]]}.
-        sort_by { |word| word[0].downcase }
-    end
-  end
-
   def set_attributes
     unless self.settings.blank?
       self.acct_transfers = settings['transfers']
       self.acct_placeholders = settings['acct_placeholders']
       self.checking_ids = settings['checking_ids']
     end
+  end
+
+  def get_settings
+    return {} if self.settings['skip'].present? || self.settings['tree'].present?
+    reset = (Rails.application.config.x.acct_updated > self.updated_at.to_s || self.settings.blank?)
+    if reset
+      rebuild_settings
+    end
+    return self.settings
+  end
+
+  def rebuild_settings
+    new_settings = {}
+    checking = self.checking_acct
+    # set checking info if checking present
+    # will be array of one or funds(multiple placeholders)
+    if checking.present?
+      leafs = checking.leaf.sort
+      if leafs.blank?
+        new_settings['checking_ids'] = [checking.id]
+      else
+        new_settings['checking_ids'] = leafs
+      end
+    end
+    # get the hiearcical tree structure
+    accts = build_tree
+    id_trans = accts.pluck(:id,:transfer)
+    new_settings['transfers'] = id_trans.to_h
+    new_settings['acct_placeholders'] = accts.select{|a| a.placeholder}.pluck(:id)
+    self.settings = new_settings
+    self.touch
+    self.save!
   end
 
   def build_tree
@@ -65,6 +68,28 @@ class Book < ApplicationRecord
       end
     end
     new_tree
+  end
+
+  #helpers to set or get attributes/settings
+  def acct_tree_ids
+    unless self.settings.blank?
+      self.acct_transfers.keys 
+    end
+  end
+
+  def acct_sel_opt
+    unless self.settings.blank?
+      self.acct_transfers.map{|k,v| [v,k]}.prepend(['',0])
+    end
+  end
+
+  def acct_sel_opt_rev
+    unless self.settings.blank?
+      self.acct_sel_opt.select{|i| i  unless self.acct_placeholders.include?(i[1])}.
+        map{|i|[ i[0].
+        split(':').reverse.join(':'),i[1]]}.
+        sort_by { |word| word[0].downcase }
+    end
   end
 
   def destroy_book
@@ -117,40 +142,6 @@ class Book < ApplicationRecord
   def current_assets
     self.accounts.find_by(code:'CURRENT')
   end
-
-
-  def get_settings
-    return {} if self.settings['skip'].present? || self.settings['tree'].present?
-    reset = (Rails.application.config.x.acct_updated > self.updated_at.to_s || self.settings.blank?)
-    if reset
-      rebuild_settings
-    end
-    return self.settings
-  end
-
-  def rebuild_settings
-    checking = self.checking_acct
-    new_settings = {}
-    # puts "CHECK ACCOUT IS #{checking}"
-    accts = build_tree
-    id_trans = accts.pluck(:id,:transfer)
-    if checking.present?
-      leafs = checking.leaf.sort
-      # puts "ARE THE LEAFS SET #{leafs}"
-      if leafs.blank?
-        new_settings['checking_ids'] = [checking.id]
-      else
-        new_settings['checking_ids'] = leafs
-      end
-    end
-    new_settings['transfers'] = id_trans.to_h
-    new_settings['acct_placeholders'] = accts.select{|a| a.placeholder}.pluck(:id)
-    self.settings = new_settings
-    self.touch
-    self.save!
-  end
-
-  
 
   def last_numbers(ago=6)
     from = Date.today.beginning_of_month - ago.months
