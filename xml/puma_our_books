@@ -1,0 +1,23 @@
+[Unit]
+Description=Puma for our_books
+After=network.target
+
+[Service]
+Type=simple
+User=rails
+WorkingDirectory=/home/rails/apps/our_books/current
+
+ExecStart=/home/rails/.rbenv/bin/rbenv exec bundle exec puma -C /home/rails/apps/our_books/shared/puma.rb
+# ExecStart=RBENV_ROOT=$HOME/.rbenv RBENV_VERSION=2.7.2 $HOME/.rbenv/bin/rbenv exec bundle exec puma -C /home/rails/apps/our_books/shared/puma.rb
+# ExecReload=/bin/kill -TSTP $MAINPID
+ExecReload=/bin/kill -USR1 $MAINPID
+StandardOutput=append:/home/rails/apps/our_books/shared/log/puma_access.log
+StandardError=append:/home/rails/apps/our_books/shared/log/puma_error.log
+
+
+
+
+Restart=always
+RestartSec=1
+
+SyslogIdentifier=puma

@@ -48,3 +48,14 @@ set :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+Rake::Task['puma:restart'].clear_actions
+
+namespace :puma do
+  desc 'Restart Puma service via systemd'
+  task :restart do
+    on roles(fetch(:puma_role)) do
+      sudo "#{fetch(:puma_systemctl_bin)} reload #{fetch(:puma_service_unit_name)}"
+    end
+  end
+end
+
