@@ -41,7 +41,7 @@ class Report
 
 
   def profit_loss(options={})
-    book = Current.book
+    book = options[:book] || Current.book
     today = Date.today
     @from = options[:from].nil? ? today.beginning_of_year  : Ledger.set_date(options[:from])
     @to = options[:to].nil? ? today.end_of_year  : Ledger.set_date(options[:to])

@@ -71,16 +71,9 @@ class BankStatementsController < ApplicationController
     redirect_to bank_statements_url, notice: "Bank statement was successfully destroyed."
   end
 
-  # def transactions
-  #   # could also use fit range?
-  #   range = Ledger.statement_range(@bank_statement.statement_date)
-  #   @transactions = Current.book.bank_transactions.where(post_date:range)
-  # end
-
   def unlinked
     # @transactions = Current.book.bank_transactions.where(entry_id:nil).where.not(ck_numb:[nil,''])
     @transactions = Current.book.bank_transactions.where(entry_id:nil)
-    @unlinked = true
     render template: 'bank_statements/transactions'
   end
 

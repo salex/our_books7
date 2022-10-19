@@ -94,11 +94,12 @@ class Book < ApplicationRecord
 
   def destroy_book
     # for some reason dependent destroy would fail, out of order of
-    # somthing, this does it in order that works
+    # something, this does it in order that works
     self.entries.destroy_all
     self.bank_statements.destroy_all
     self.bank_transactions.destroy_all
     self.accounts.destroy_all
+    self.stashes.destroy_all
     self.destroy
   end
 

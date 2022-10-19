@@ -18,24 +18,24 @@
       
 
 div.print:hidden
-  .grid.grid-cols-12.pt-1.gap-8.bg-black.text-white.font-bold.text-lg
+  .flex.gap-16.bg-black.text-white.font-bold.text-lg.p-1
     - if Current.user.blank?
 
-      div.col-span-5
+      div
         = link_to "Home", root_path, class:"hover:bg-gray-300 inline-block h-8 px-3 hover:text-black"
 
         = link_to "About",about_path, class:"hover:bg-gray-300 inline-block h-8 px-3 hover:text-black"
 
-      div.col-span-7.
+      div
         - flash.each do |name, msg|
           - if msg.is_a?(String)
             .flash-box.w3-padding.w3-animate-right[
               data-controller="flashit" 
               data-flashit-target="flashBox" 
-              class="#{name.to_s == 'notice' ? 'text-green-400' : 'text-red-400'}"]
+              class="#{name.to_s == 'notice' ? 'p-0.5text-green-500 bg-green-100 px-4' : 'p-0.5text-red-500 bg-red-100 px-4'}"]
               = content_tag :span, content_tag(:strong,msg)
     - else
-      div.col-span-6
+      div
         = link_to "Home", root_path, class:"hover:bg-gray-300 inline-block h-8 px-3 mr-2 hover:text-black"
         / = link_to "Books",books_path, class:"hover:bg-gray-300 inline-block h-8 px-3 hover:text-black"
 
@@ -61,38 +61,13 @@ div.print:hidden
 
         - if Current.client.name.include?('VFW')
           = link_to "VFW",vfw_post_index_path, class:"hover:bg-gray-300 inline-block h-8 px-3 mr-2 hover:text-black"
-
-        / .relative.inline-block
-        /   button[class="peer px-5 hover:bg-gray-600 text-white"] 
-        /     | Dropdown&nbsp;&nbsp;
-        /     i.fa.fa-caret-down
-
-        / .relative.inline-block
-        /   button[class="peer px-5 hover:bg-gray-300 hover:text-black text-white"] 
-        /     | Dropdown&nbsp;&nbsp;
-        /     i.fa.fa-caret-down
-
-        /   div[class="hidden absolute z-10 peer-hover:flex hover:flex w-[200px] text-black bg-white flex-col w3-card-4"]
-        /     a.px-5.gbtn.hover:bg-gray-200[href="#"] About Us
-        /     a.px-5.gbtn.hover:bg-gray-200[href="#"] Contact Us
-        /     a.px-5.gbtn.hover:bg-gray-200[href="#"] Privacy Policy
-
-        / .relative.inline-block
-        /   button[class="peer px-5 hover:bg-gray-600 text-white"] 
-        /     | Dropdown&nbsp;&nbsp;
-        /     i.fa.fa-caret-down
-        /   div[class="hidden absolute z-10 peer-hover:flex hover:flex w-[200px] flex-col text-black bg-white drop-shadow-lg"]
-        /     a.px-5.block.py-1.gbtn.hover:bg-gray-200[href="#"] About Us
-        /     a.px-5.block.py-1.gbtn.hover:bg-gray-200[href="#"] Contact Us
-        /     a.px-5.block.py-1.gbtn.hover:bg-gray-200[href="#"] Privacy Policy
-
-      div.col-span-4.
+      div
         - flash.each do |name, msg|
           - if msg.is_a?(String)
             .flash-box.w3-padding.w3-animate-right[
               data-controller="flashit" 
               data-flashit-target="flashBox" 
-              class="#{name.to_s == 'notice' ? 'text-green-400' : 'text-red-400'}"]
+              class="#{name.to_s == 'notice' ? 'p-1 text-green-500 bg-green-100 px-4' : 'p-1 text-red-500 bg-red-100 px-4'}"]
               = content_tag :span, content_tag(:strong,msg)
 
 - if session[:recent].present?

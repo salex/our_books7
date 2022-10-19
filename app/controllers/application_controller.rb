@@ -49,7 +49,11 @@ class ApplicationController < ActionController::Base
     Current.user = @current_user
     if Current.user
       if session[:client_id].present?
-        Current.client = Client.find(session[:client_id])
+        Current.client = Client.find_by(id:session[:client_id])
+        # this if for super visiting and destroying client
+        unless Current.client.present?
+          Current.client = Current.user.client
+        end
       else
         Current.client = Current.user.client
       end
@@ -92,7 +96,7 @@ class ApplicationController < ActionController::Base
           sign_out
         end
       else
-        session[:expires_at] = Time.now + 60.minutes
+        session[:expires_at] = Time.now + 120.minutes
       end
     else
       # expire all sessions, even if not user to midnight

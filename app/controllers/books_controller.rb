@@ -4,8 +4,9 @@ class BooksController < ApplicationController
 
   # GET /books
   def index
-    # @books = Current.client.books.all.order(:id)
-    @books = Book.all.order(:id)
+    @books = Current.client.books.all.order(:id)
+    # @books = Book.all.order(:id)
+    # flash.now[:notice] = "We have exactly #{@books.size} books available."
 
   end
 

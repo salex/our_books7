@@ -12,7 +12,7 @@
 
 - splits = @entry.splits
 
-.flex.gap-8
+.flex.gap-8.print.fs8
   div 
     button[class="#{btn_sm_blue} m-2"] =  link_to 'Edit', edit_entry_path(@entry)
     / .blue-link-button.m-2 = link_to 'Back', entries_path
@@ -38,7 +38,7 @@
       - @entry.set_attributes
       = money @entry.amount
 
-table.gl-table
+table.gl-table.print.fs8
   caption = "FIT_ID #{@entry.fit_id}"
   thead
     tr.header-row

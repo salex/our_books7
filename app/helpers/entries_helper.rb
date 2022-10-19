@@ -11,7 +11,7 @@ module EntriesHelper
     qtr2 = boy + 3.months
     qtr3 = boy + 6.months
     qtr4 = boy + 9.months
-    all = Date.new(1970,1,1)
+    all = Date.new(2014,1,1)
     options = [
       ['Select From Period',nil],
       ['Beginning of Month',bom.to_s],
@@ -29,10 +29,16 @@ module EntriesHelper
 
     ]
     date = bom
-    12.times do |i|
+    6.times do |i|
       options << [date.to_formatted_s(:month_and_year),date.to_s]
       date = date.last_month
     end
+    date = "2014-01-01".to_date 
+    while date < today.beginning_of_year do 
+      options << [date.year.to_s+ " Accounting Year",date.to_s]
+      date = date + 1.year 
+    end
+
 
     content_tag(:select,options_for_select(options),
       class:'w-full rounded-none  px-2', id: :from_select,
@@ -75,10 +81,16 @@ module EntriesHelper
 
     ]
     date = bom
-    12.times do |i|
+    6.times do |i|
       options << [date.end_of_month.to_formatted_s(:month_and_year),date.end_of_month.to_s]
       date = date.last_month
     end
+    date = "2014-12-31".to_date 
+    while date < today.beginning_of_year do 
+      options << [date.year.to_s+ " Accounting Year",date.to_s]
+      date = date + 1.year 
+    end
+
 
     content_tag(:select,options_for_select(options),
       class:'w-full rounded-none  px-2',id: :to_select,

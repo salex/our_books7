@@ -19,36 +19,36 @@ module AccountsHelper
   end
 
   def summary_list(root,p=0)
-    if params[:tree].present?
-      return acct_tree(root)
-    end
-    html = content_tag(:div, class: 'pl-row') {
+    # if params[:tree].present?
+    #   return acct_tree(root)
+    # end
+    html = content_tag(:div, class: "ml-#{root.level}") {
       ul_contents = ""
-      # ul_contents << content_tag(:div, link_to(root.name,account_checkbooks_path(guid:root.guid)), class:"col-acct p#{p}")
-      ul_contents << content_tag(:div, link_to(root.name,account_path(root)), class:"blue-link summary-acct p#{p}")
+      ul_contents << content_tag(:div, link_to(root.name,account_path(root)), 
+        class:"blue-link inline-block ml-#{root.level}")
 
-      ul_contents << content_tag(:div,node_balance(root),class:'pl-summary')
-      p +=1
+      ul_contents << content_tag(:div,node_balance(root),
+        class:'inline-block text-right float-right')
       root.children.each do |child|
-        ul_contents << summary_list(child,p)
+        ul_contents << summary_list(child)
       end
-      p -= 1
       ul_contents.html_safe
     }.html_safe
   end
 
-  def acct_tree(root,p=0)
-    html = content_tag(:div, class: 'pl-row') {
-      ul_contents = ""
-      ul_contents << content_tag(:div, root.name, class:"col-acct p#{p}")
-      p +=1
-      root.children.each do |child|
-        ul_contents << acct_tree(child,p)
-      end
-      p -= 1
-      ul_contents.html_safe
-    }.html_safe
-  end
+  # replaced by acct_tree_ids in Account model
+  # def acct_tree(root,p=0)
+  #   html = content_tag(:div, class: 'pl-row') {
+  #     ul_contents = ""
+  #     ul_contents << content_tag(:div, root.name, class:"col-acct p#{p}")
+  #     p +=1
+  #     root.children.each do |child|
+  #       ul_contents << acct_tree(child,p)
+  #     end
+  #     p -= 1
+  #     ul_contents.html_safe
+  #   }.html_safe
+  # end
 
   def node_balance(acct)
     b = acct.family_balance

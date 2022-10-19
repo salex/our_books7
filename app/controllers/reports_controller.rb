@@ -89,10 +89,10 @@ class ReportsController < ApplicationController
 
 
 
-  def custom
-    set_param_date
-    render plain: params
-  end
+  # def custom
+  #   set_param_date
+  #   render plain: params
+  # end
 
   private
 
