@@ -57,16 +57,17 @@ class BooksController < ApplicationController
     @book.settings = {}
     @book.save
     @book.get_settings
+    helpers.set_book_session(@book)
     checking_account = @book.checking_acct
-    session[:recent]= {}
-    if checking_account.present?
-      leafs = checking_account.leaf.sort
-      session[:recent][checking_account.id.to_s] = checking_account.name
-      sub_accts = Account.find(leafs)
-      sub_accts.each do |l|
-        session[:recent][l.id.to_s] = l.name
-      end
-    end
+    # session[:recent]= {}
+    # if checking_account.present?
+    #   leafs = checking_account.leaf.sort
+    #   session[:recent][checking_account.id.to_s] = checking_account.name
+    #   sub_accts = Account.find(leafs)
+    #   sub_accts.each do |l|
+    #     session[:recent][l.id.to_s] = l.name
+    #   end
+    # end
     redirect_to home_index_path, notice: "Current Book set"
   end
 

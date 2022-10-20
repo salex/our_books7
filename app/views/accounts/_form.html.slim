@@ -39,8 +39,12 @@
 
       div
         = form.label :parent_id, style: "display: block"
-        = form.hidden_field :parent_id
-        div = @account.parent_id
+        - if Current.user.is_trustee?
+          = form.number_field :parent_id
+
+        - else
+          = form.hidden_field :parent_id
+          div = @account.parent_id
 
       div
         = form.label :level, style: "display: block"

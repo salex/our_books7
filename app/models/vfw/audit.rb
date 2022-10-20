@@ -1,6 +1,6 @@
 module Vfw
   class Audit
-    include ClientsHelper
+    include AuditHelper
     attr_accessor :audit_yaml, :config, :range, :summary, :assets
 
     def initialize(qtr_date=nil)

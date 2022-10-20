@@ -1,7 +1,8 @@
-
+#TODO maybe convert to using AuditHelper as in html version
 class Vfw::TrusteeAudit < Prawn::Document
   attr_accessor :summary,:config,:range
   include  ActionView::Helpers::AssetTagHelper
+  include AuditHelper
 
   def initialize(qtr_date=nil)
     super(page_layout: :portrait, top_margin:6)

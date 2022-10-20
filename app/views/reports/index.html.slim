@@ -14,8 +14,8 @@ div[data-controller="blueBackground"]
   div.w-2/3
     .strong Date Filtering
     div.p-1[data-controller="dateRange" data-dateRange-url-value=""]  
-      div
-        div.bg-yellow-50.p-2
+      div.bg-yellow-50.p-2
+        div
           div.strong Filter - Select Period or Pick Date for Report Options
           div
             .w-1/2.inline-block = from_period_select
@@ -25,29 +25,30 @@ div[data-controller="blueBackground"]
             .w-1/2.inline-block = to_period_select
             | -or- 
             .inline-block = text_field_tag :to_date, nil,data:{dateRange_target:'to_date',rangepicker_target:'to_date',controller:'flatpickr'},placeholder:'Pick To Date', class:'border'
+        div.flex.flex-wrap.gap-4
+          div
+            .strong Level Filter
+            .w3-row.w3-row-padding
+              = content_tag(:select,options_for_select([['Select',''],1,2,3,4,5],1),id: :level_select,class:'w3-select',
+                data:{rangepicker_target:'level'})
+            - puts "OPTINS #{@account_options}"
+            - puts "OPTINS #{Current.book.checking_acct.id}"
 
-          .strong Level Filter
-          .w3-row.w3-row-padding
-            = content_tag(:select,options_for_select([['Select',''],1,2,3,4,5],1),id: :level_select,class:'w3-select',
-              data:{rangepicker_target:'level'})
-          - puts "OPTINS #{@account_options}"
-          - puts "OPTINS #{Current.book.checking_acct.id}"
-
-          .strong Account Filter
-          .w3-row.w3-row-padding
-            = content_tag(:select,options_for_select(@acct_options,  session[:acct_id] ||= Current.book.checking_acct.id),id: :account_select,
-              data:{rangepicker_target:'account',action:'rangepicker#accountSet'},class:'w3-select')
-
-          .strong Account Ledger PDF Reports
-          .w3-row.w3-row-padding
-            .s6.w3-col
-              strong Account Ledger(pdf)
-              / session[:acct_id] ||= Current.book.checking_acct.id
-              div.entry-select= select_tag('register_pdf',
-                options_for_select(report_select_options( nil,'/reports/register_pdf')),
-                prompt:"-Select Date-",data:{action:'rangepicker#selectPDF'},class:'w3-select')
-            .s6.w3-col
-              strong Split Account Ledger(pdf)
-              div= select_tag('register_pdf',
-                options_for_select(report_select_options(nil,'/reports/split_register_pdf')),
-                prompt:"-Select Date-",data:{action:'rangepicker#selectSplit'},class:'w3-select')
+            .strong Account Filter
+            .w3-row.w3-row-padding
+              = content_tag(:select,options_for_select(@acct_options,  session[:acct_id] ||= Current.book.checking_acct.id),id: :account_select,
+                data:{rangepicker_target:'account',action:'rangepicker#accountSet'},class:'w3-select')
+          div.p-2
+            .strong Account Ledger PDF Reports
+            .w3-row.w3-row-padding
+              .s6.w3-col
+                strong Account Ledger(pdf)
+                / session[:acct_id] ||= Current.book.checking_acct.id
+                div.entry-select= select_tag('register_pdf',
+                  options_for_select(report_select_options( nil,'/reports/register_pdf')),
+                  prompt:"-Select Date-",data:{action:'rangepicker#selectPDF'},class:'w3-select')
+              .s6.w3-col
+                strong Split Account Ledger(pdf)
+                div= select_tag('register_pdf',
+                  options_for_select(report_select_options(nil,'/reports/split_register_pdf')),
+                  prompt:"-Select Date-",data:{action:'rangepicker#selectSplit'},class:'w3-select')

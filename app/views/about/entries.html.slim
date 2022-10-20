@@ -36,7 +36,7 @@
         ul.classic.ml-4
           li Validate - Button runs the validation check and is rarely used since validations are run if any required element is changed. Duplicating and entry from Bank Transactions, will be valid, but you must either change a required field (green shaded columns) or click the Validate button.
           li Delete Entry - You can delete an entry made in error if it has not been reconciled or cleared
-          li Void Entry - You can void an entry if it has not been reconciled or cleared
+          li.line-through Void Entry - You can void an entry if it has not been reconciled or cleared
           li Cancel - You can cancel an entry (new or edit) at any time, no changes will be make
         p.my-1.5 <strong>Submit</strong> The submit button is disabled if the entry is invalid (not balanced or missing a required field)
 
@@ -82,7 +82,7 @@
         dl.indent
       
           dt Increase and Decrease field (or Debits Credits for Accountants!)
-          dd Much like GnuCash, RCash will try to keep your entries balanced. (sum of increases is equal to the sum of decreases)
+          dd Much like GnuCash, OurBooks will try to keep your entries balanced. (sum of increases is equal to the sum of decreases)
           dd There is a button in the transfer header that will clear all increases and decreases, again useful if you've duplicated an Entry
           dd 
             ul.classic.ml-4

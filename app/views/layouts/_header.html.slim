@@ -32,7 +32,7 @@ div.print:hidden
             .flash-box.w3-padding.w3-animate-right[
               data-controller="flashit" 
               data-flashit-target="flashBox" 
-              class="#{name.to_s == 'notice' ? 'p-0.5text-green-500 bg-green-100 px-4' : 'p-0.5text-red-500 bg-red-100 px-4'}"]
+              class="#{name.to_s == 'notice' ? 'p-0.5 text-green-500 bg-green-100 px-4' : 'p-0.5 text-red-500 bg-red-100 px-4'}"]
               = content_tag :span, content_tag(:strong,msg)
     - else
       div
@@ -67,7 +67,7 @@ div.print:hidden
             .flash-box.w3-padding.w3-animate-right[
               data-controller="flashit" 
               data-flashit-target="flashBox" 
-              class="#{name.to_s == 'notice' ? 'p-1 text-green-500 bg-green-100 px-4' : 'p-1 text-red-500 bg-red-100 px-4'}"]
+              class="#{name.to_s == 'notice' ? 'p-0.5 text-green-500 bg-green-100 px-4' : 'p-0.5 text-red-500 bg-red-100 px-4'}"]
               = content_tag :span, content_tag(:strong,msg)
 
 - if session[:recent].present?

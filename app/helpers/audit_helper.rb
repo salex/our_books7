@@ -1,4 +1,4 @@
-module ClientsHelper
+module AuditHelper
   def to_struct(ahash)
     struct = ahash.to_struct
     struct.members.each do |m|

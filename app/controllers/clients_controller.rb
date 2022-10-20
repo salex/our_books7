@@ -59,7 +59,7 @@ class ClientsController < ApplicationController
         book = user.client.books.find_by(id:user.default_book)
         if book.present?
           helpers.set_book_session(book) 
-          puts helpers.inspect_session
+          # puts helpers.inspect_session
         end
       end
       redirect_to home_index_path, notice: "Logged in!"
