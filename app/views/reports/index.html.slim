@@ -15,7 +15,7 @@ div[data-controller="blueBackground"]
     .strong Date Filtering
     div.p-1[data-controller="dateRange" data-dateRange-url-value=""]  
       div.bg-yellow-50.p-2
-        div
+        div.border-b.pb-1
           div.strong Filter - Select Period or Pick Date for Report Options
           div
             .w-1/2.inline-block = from_period_select
@@ -25,7 +25,7 @@ div[data-controller="blueBackground"]
             .w-1/2.inline-block = to_period_select
             | -or- 
             .inline-block = text_field_tag :to_date, nil,data:{dateRange_target:'to_date',rangepicker_target:'to_date',controller:'flatpickr'},placeholder:'Pick To Date', class:'border'
-        div.flex.flex-wrap.gap-4
+        div.flex.flex-wrap.gap-4.border-b
           div
             .strong Level Filter
             .w3-row.w3-row-padding
