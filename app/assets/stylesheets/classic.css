@@ -20,7 +20,7 @@
 .w3-green,.w3-hover-green:hover{color:#fff!important;background-color:#4CAF50!important}
 .w3-card,.w3-card-2{box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}
 .w3-animate-right{position:relative;animation:animateright 0.4s}@keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}
-
+.nopointer {  pointer-events: none; }
 dl dd{
   display:inline-block;
   margin-left: 8px;

@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "from_date" ,'to_date','toOptions','fromOptions']
+  static targets = [ "from_date" ,'to_date','toOptions','fromOptions','from','to']
   static values = { url: String }
 
   connect() {
@@ -13,7 +13,7 @@ export default class extends Controller {
   toOption(){
     var toSel = this.toOptionsTarget
     this.toDate.value = toSel.value
-
+    this.toTarget.value = toSel.value
   }
 
   fromOption() {
@@ -23,13 +23,16 @@ export default class extends Controller {
     this.fromDate.value = fromSel.value
     toSel.selectedIndex = fromIndex
     this.toDate.value = toSel.value
+    this.toTarget.value = toSel.value
+    this.fromTarget.value = fromSel.value
   }
 
-  assignDisplay() {
-    location.assign(`/${this.urlValue.replace('//','/')}?from=${this.fromDate.value}&to=${this.toDate.value}`)
+  filter(){ // this does a turbo frame replace
+    this.toTarget.value = this.toDate.value
+    this.fromTarget.value = this.fromDate.value
   }
 
-  assignPdf() {
+  assignPdf() { // url comes in as 'accounts//'
     location.assign(`/${this.urlValue.replace('//','/register_pdf/')}?from=${this.fromDate.value}&to=${this.toDate.value}`)
   }
 

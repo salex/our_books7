@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   resources :accounts do
     member do 
       get :new_child
+      patch :filter
     end
     collection do
       get :index_table

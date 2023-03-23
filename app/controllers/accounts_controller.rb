@@ -22,6 +22,15 @@ class AccountsController < ApplicationController
     render template:'accounts/ledger/show'
   end
 
+  def filter
+    set_account
+    session[:current_acct] = @account.id
+    set_param_date
+    render turbo_stream: turbo_stream.replace(
+      'ledger', partial: 'accounts/ledger/ledger', 
+      locals:{from:@from,to:@to,account:@account})
+  end
+
   # GET /accounts/new
   def new
     @account = Account.new
