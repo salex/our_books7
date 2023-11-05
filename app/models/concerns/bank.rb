@@ -112,7 +112,7 @@ class Bank
   def self.get_unlinked_checking_entries_by_amount(bt)
     return(Bank.get_bt_unlinked_entries(bt)) if bt.post_date < "2018-07-01".to_date
     amt_opt = []
-    btw = (bt.post_date - 25.days)..bt.post_date
+    btw = (bt.post_date - 45.days)..bt.post_date
 
     splits = Split.where(account_id:Current.book.checking_ids, reconcile_state:'n')
     # get all splits in current book that match account, and amount

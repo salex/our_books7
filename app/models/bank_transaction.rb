@@ -40,7 +40,6 @@ class BankTransaction < ApplicationRecord
       # options[:amt] = Bank.get_bt_unlinked_entries(self)
 
     end
-    # puts options.inspect
     options 
   end 
 end
