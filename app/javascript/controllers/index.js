@@ -11,3 +11,7 @@ eagerLoadControllersFrom("controllers", application)
 // lazyLoadControllersFrom("controllers", application)
 import Flatpickr from 'stimulus-flatpickr'
 application.register('flatpickr', Flatpickr)
+
+// import { Ofx } from 'ofx-data-extractor'
+// application.register('ofx', Ofx)
+

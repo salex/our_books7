@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.0.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.3", ">= 7.0.3.1"
+gem "rails", "~> 7.0.8"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -19,7 +19,9 @@ gem "puma", "~> 6.0"
 gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
+# gem "turbo-rails"
+gem "turbo-rails", "~> 1.0"
+
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -84,8 +86,9 @@ gem 'prawn'
 gem 'prawn-table'
 
 # gem 'ofx' , '~> 0.3.3' , github: 'annacruz/ofx', branch: 'main'
-gem 'ofx', git: 'https://github.com/annacruz/ofx.git', ref: 'ee01638'
+gem 'ofx', git: 'https://github.com/annacruz/ofx.git' #, ref: 'ee01638'
 gem 'acts_as_tenant'
 
-
 gem 'leftovers', require: false
+
+# gem 'ofx-parser', '~> 1.1'
