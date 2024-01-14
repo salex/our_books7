@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       get :update_reconcile
       post :clear_splits
       post :unclear_splits
-      get :ofx_data
+      # get :ofx_data
     end
     collection do 
       get :unlinked

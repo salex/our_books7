@@ -135,21 +135,21 @@ class Account < ApplicationRecord
     branch_array
   end
 
-  def long_account_name(reverse=false)
-    account_name = self.name
-    the_parent = self.parent 
-    while the_parent.present? && the_parent.account_type != 'ROOT'
-      if reverse
-        account_name = account_name + ":" + the_parent.name
-      else
-        account_name = the_parent.name + ":" + account_name
-      end
-      the_parent = the_parent.parent
-    end
-    # for data_lookup
-    account_name = "#{account_name}[#{self.id}]" if reverse
-    return account_name
-  end
+  # def long_account_name1(reverse=false)
+  #   account_name = self.name
+  #   the_parent = self.parent 
+  #   while the_parent.present? && the_parent.account_type != 'ROOT'
+  #     if reverse
+  #       account_name = account_name + ":" + the_parent.name
+  #     else
+  #       account_name = the_parent.name + ":" + account_name
+  #     end
+  #     the_parent = the_parent.parent
+  #   end
+  #   # for data_lookup
+  #   account_name = "#{account_name}[#{self.id}]" if reverse
+  #   return account_name
+  # end
 
 =begin Balances
   There are twp types of balances

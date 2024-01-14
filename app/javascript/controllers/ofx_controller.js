@@ -1,3 +1,4 @@
+// THIS IS NOT USED A TEST THAT FAILED USING JS OFX
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {

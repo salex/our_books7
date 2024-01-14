@@ -18,11 +18,11 @@ class BankStatementsController < ApplicationController
     @transactions = Current.book.bank_transactions.where(post_date:range).order(:post_date).reverse
   end
 
-  def ofx_data
-    @bank_statement = BankStatement.find 65
-    render template: 'bank_statements/ofx_data'
+  # def ofx_data
+  #   @bank_statement = BankStatement.find(params(:id))
+  #   render template: 'bank_statements/ofx_data'
 
-  end
+  # end
 
   # GET /bank_statements/new
   def new
