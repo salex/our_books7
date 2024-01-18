@@ -53,7 +53,9 @@ class BankTransactionsController < ApplicationController
   def update_ofx
     @uploaded_io = params['ofx']
     @ofx_data = @uploaded_io.read
-    @acct = OFX(@ofx_data).account
+    # @acct = OFX(@ofx_data).account
+    @acct = MyOfx.new(@ofx_data).account.to_o
+
     render :ofx_data, data:{turbo:false}
   end
 

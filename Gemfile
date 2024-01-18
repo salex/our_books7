@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.0.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.8"
+gem "rails", "~> 7.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -84,9 +84,10 @@ gem 'slim-rails'
 gem 'activerecord_where_assoc', '~> 1.0'
 gem 'prawn'
 gem 'prawn-table'
-
-# gem 'ofx' , '~> 0.3.3' , github: 'annacruz/ofx', branch: 'main'
-gem 'ofx', git: 'https://github.com/annacruz/ofx.git' #, ref: 'ee01638'
+gem 'nokogiri', '>= 1.15.0'
+#gem 'ofx' , '~> 0.3.3' , github: 'annacruz/ofx', branch: 'main'
+# gem 'ofx'
+# , git: 'https://github.com/annacruz/ofx.git' , ref: 'ee01638'
 gem 'acts_as_tenant'
 
 gem 'leftovers', require: false

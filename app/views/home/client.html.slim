@@ -1,7 +1,5 @@
 div[data-controller="blueBackground"]
-/ .w3-container.min-height
 div.flex.flex-wrap.gap-12.bg-yellow-50.p-2.pb-48
-  / [style="background-color:#ffffdd"]
   .div
     h2.text-lg.font-bold Welcome to OurBooks {aka MyBooks rBooks, rCash, iCash}
     .show-fields
@@ -30,13 +28,7 @@ div.flex.flex-wrap.gap-12.bg-yellow-50.p-2.pb-48
         label Rails Version: 
         span = Rails.version
 
-    / <script type="text/javascript" src="https://www.brainyquote.com/link/quotebr.js"></script>
-    / <small><i>
-    /   <a href="https://www.brainyquote.com/quotes_of_the_day.html" target="_blank" rel="nofollow">more Quotes</a>
-    / </i>
-    / </small>
- 
-
+  
   div.w-1/4
     div[class="bg-yellow-200 w3-card-4"]
       strong.p-1 Client Links
@@ -54,19 +46,6 @@ div.flex.flex-wrap.gap-12.bg-yellow-50.p-2.pb-48
         = link_to "Users", users_path, class:"block gbtn" 
       - if Current.user.is_super? 
         = link_to "Clients", clients_path, class:"block gbtn" 
-
-      / - links = [["Bank Statements", bank_statements_path],\
-    /             ["Bank(OFX) Trans", latest_ofxes_path ],\
-    /             ["Checking Balance", checking_balance_reports_path],\
-    /             ["Reports", reports_path ],\
-    /             ["Entry Search",entries_filter_index_path ]]
-    / - if current_user.is_super?
-    /   - links << ["Users", users_path ]
-    / = render(GoldMenu::Component.new(title:"Home Sidebar Links",links:links))
-    / - links = [["Deposits", weekly_vfw_deposits_path],\
-    /             ["Sales Items/Inventory", vfw_sales_items_path ],\
-    /             ["Menu", vfw_path]]
-    / = render(GoldMenu::Component.new(title:"VFW",links:links))
 
 
 
