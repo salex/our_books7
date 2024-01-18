@@ -9,7 +9,7 @@ class BankTransaction < ApplicationRecord
   # attribute :accts
   def self.import_transactions(ofx_data,bs)
     puts "IT GOT TO IMPORT "
-    acct = MyOfx.new(@ofx_data).account.to_o 
+    acct = MyOfx.new(ofx_data).account.to_o 
     #OFX(ofx_data).account
     acct.transactions.each do |t|
       unless Current.book.bank_transactions.find_by(fit_id:t.fit_id).present?
