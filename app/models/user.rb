@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email, :case_sensitive => false
 
   validates_format_of :username, :with => /[-\w\._@]+/i, :allow_blank => true, :message => "should only contain letters, numbers, or .-_@"
-  serialize :roles, Array
+  serialize :roles, coder: JSON, type:  Array
   before_save :downcase_login
 
   def downcase_login
