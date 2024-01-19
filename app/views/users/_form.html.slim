@@ -37,12 +37,20 @@
         = form.password_field :password_confirmation
       .s4.w3-col
         label Roles
-        - checkboxes = role_checkboxes(@user.roles)
-        - checkboxes.each do |b|
-          .m3.columns
-            = check_box_tag 'user[roles][]', b[0],b[1]
-            |&nbsp;
-            = b[0]
+        .m3.columns
+          - [ 'super', 'admin', 'trustee', 'guest'].each do |role|
+            div
+              = form.radio_button(:roles, role, checked:@user.roles.include?(role))
+              span.ml-2.font-bold= role.humanize
+
+
+ 
+        / - checkboxes = role_checkboxes(@user.roles)
+        / - checkboxes.each do |b|
+        /   .m3.columns
+        /     = check_box_tag 'user[roles][]', b[0],b[1]
+        /     |&nbsp;
+        /     = b[0]
 
 
       div[class="#{btn_submit}"]

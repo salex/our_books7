@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # GET /users
   def index
     role_array = helpers.user_roles
-    @users = Current.client.users.select{|u| role_array.include?(u.roles.first)}
+    @users = Current.client.users #.select{|u| role_array.include?(u.roles.first)}
   end
 
   # GET /users/1
@@ -72,6 +72,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:client_id, :email, :username, :full_name,{:roles => []}, :default_book, :password, :password_confirmation)
+      params.require(:user).permit(:client_id, :email, :username, :full_name,:roles, :default_book, :password, :password_confirmation)
     end
 end

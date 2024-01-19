@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email, :case_sensitive => false
 
   validates_format_of :username, :with => /[-\w\._@]+/i, :allow_blank => true, :message => "should only contain letters, numbers, or .-_@"
-  serialize :roles, coder: JSON, type:  Array
+  # serialize :roles, coder: JSON, type:  Array
   before_save :downcase_login
 
   def downcase_login
@@ -22,40 +22,54 @@ class User < ApplicationRecord
 
   # Role checker, from low of guest to high of super
   def is_super?
-    return has_role?('super') || self.username == 'salex'
-  end
-
-  def is_trustee?
-  return has_role?(%w(trustee super admin manager))
+    return has_role?(['super']) || self.username == 'salex'
   end
 
   def is_admin?
-  return has_role?(%w(super admin manager))
+  return has_role?(%w(super admin))
+  end
+
+  def is_trustee?
+  return has_role?(%w(trustee super admin))
   end
 
   def is_guest?
-    return has_role?('guest')
+    return has_role?(['guest'])
   end
-    
+  
   def has_role?(role)
-    return false if self.roles.nil?
-    if role.class != Array
-      if self.roles.class == Array
-        return self.roles.include?(role.to_s.downcase)
-      else
-        return self.roles == (role.to_s.downcase)
-      end
-    else
-      ok = false
-      role.each do |r|
-        if self.roles.class == Array
-          ok = true if self.roles.include?(r.to_s.downcase)
-        else
-          ok = true if self.roles == (r.to_s.downcase)
-        end
-      end
+    # new simpified role based access. role is always an array
+    # self.roles should be a string with one word but will take more
+    # will work with unserailized haml or json left in roles
+    return false if self.roles.blank?
+    return false if role.class != Array
+    ok = false
+    role.each do |r|
+      ok = true if self.roles.include?(r)
     end
     return ok
   end
+
+  # def has_role?(role)
+  #   return false if self.roles.nil?
+
+  #   if role.class != Array
+  #     if self.roles.class == Array
+  #       return self.roles.include?(role.to_s.downcase)
+  #     else
+  #       return self.roles == (role.to_s.downcase)
+  #     end
+  #   else
+  #     ok = false
+  #     role.each do |r|
+  #       if self.roles.class == Array
+  #         ok = true if self.roles.include?(r.to_s.downcase)
+  #       else
+  #         ok = true if self.roles == (r.to_s.downcase)
+  #       end
+  #     end
+  #   end
+  #   return ok
+  # end
 
 end
