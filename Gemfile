@@ -82,6 +82,7 @@ end
 
 gem 'slim-rails'
 gem 'activerecord_where_assoc', '~> 1.0'
+gem "matrix"
 gem 'prawn'
 gem 'prawn-table'
 gem 'nokogiri', '>= 1.15.0'
