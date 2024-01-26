@@ -61,12 +61,12 @@
 #   }
 set :user,            'rails'
 
-role :app, %w{rails@104.248.4.230}
-role :web, %w{rails@104.248.4.230}
-role :db,  %w{rails@104.248.4.230}
-# role :app, %w{rails@167.71.240.205}
-# role :web, %w{rails@167.71.240.205}
-# role :db,  %w{rails@167.71.240.205}
+# role :app, %w{rails@104.248.4.230}
+# role :web, %w{rails@104.248.4.230}
+# role :db,  %w{rails@104.248.4.230}
+role :app, %w{rails@167.71.240.205}
+role :web, %w{rails@167.71.240.205}
+role :db,  %w{rails@167.71.240.205}
 
 # Don't change these unless you know what you're doing
 set :pty,             true
