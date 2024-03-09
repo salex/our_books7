@@ -2,7 +2,7 @@ class BankTransaction < ApplicationRecord
   belongs_to :book
   # belongs_to :client
   belongs_to :entry, optional: true
-  acts_as_tenant(:book)
+  # acts_as_tenant(:book)
   acts_as_tenant(:client)
 
   # attribute :ofx

@@ -1,4 +1,4 @@
-= turbo_frame_tag "ledger"
+= turbo_frame_tag "ledger", target: '_top'
   #Ledger.bg-white.mt-1.px-2.print:text-xs
 
     - lines = account.placeholder ? account.children_ledger(from,to) : account.account_ledger(from,to)

@@ -40,7 +40,7 @@ class MyOfx
   def build_transaction(element)
     trans = {
        amount: build_amount(element),
-       amount_in_pennies: (build_amount(element) * 100).to_i,
+       amount_in_pennies: ((build_amount(element) * 100).round(2)).to_i,
        fit_id: (element.search('fitid').text),
        memo: (element.search('memo').text),
        name: (element.search('name').text),
@@ -108,7 +108,7 @@ class MyOfx
     end
     balance = {
      amount: amount,
-     amount_in_pennies: (amount * 100).to_i,
+     amount_in_pennies: ((amount * 100).round(2)).to_i,
      posted_at: posted_at
     }
   end
@@ -118,7 +118,7 @@ class MyOfx
       amount = to_decimal(node.search('availbal > balamt').inner_text)
       available_balance = {
         amount: amount,
-        amount_in_pennies: (amount * 100).to_i,
+        amount_in_pennies: ((amount * 100).round(2)).to_i,
         posted_at: build_date(node.search('availbal > dtasof').inner_text)
       }
     end
@@ -131,3 +131,5 @@ class MyOfx
   end
 
 end
+
+

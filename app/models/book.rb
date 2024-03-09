@@ -9,7 +9,7 @@ class Book < ApplicationRecord
   has_many :stashes, dependent: :destroy
 
 
-  serialize :settings, JSON
+  serialize :settings, coder: JSON
   
   attribute :acct_transfers
   attribute :acct_placeholders

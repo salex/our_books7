@@ -3,7 +3,7 @@ class Client < ApplicationRecord
   has_many :users, dependent: :destroy
 
 
-  serialize :settings, JSON
+  serialize :settings, coder: JSON
   attribute :setting
 
 end

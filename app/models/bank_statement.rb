@@ -3,7 +3,7 @@ class BankStatement < ApplicationRecord
   belongs_to :book
   acts_as_tenant(:client)
 
-  serialize :summary, JSON
+  serialize :summary, coder: JSON
   attribute :bank
   attribute :transactions
 
