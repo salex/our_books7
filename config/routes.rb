@@ -116,7 +116,7 @@ Rails.application.routes.draw do
     collection do
       get :profit_loss
       get :trial_balance
-      get :checking_balance
+      # get :checking_balance
       get :register_pdf
       get :split_register_pdf
       get :summary
@@ -124,10 +124,10 @@ Rails.application.routes.draw do
       get :set_acct
 
     end
-    member do
-      post :split_clear
-      post :split_unclear
-    end
+    # member do
+    #   post :split_clear
+    #   post :split_unclear
+    # end
   end
   get 'about/about'
   get 'about/accounts'

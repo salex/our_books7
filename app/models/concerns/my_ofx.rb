@@ -62,22 +62,6 @@ class MyOfx
   def build_date(date)
     # for rails it's only to_time
     date.to_time
-    # tz_pattern = /(?:\[([+-]?\d{1,4}):\S{3}\])?\z/
-    # # Timezone offset handling
-    # date.sub!(tz_pattern, '')
-    # offset = Regexp.last_match(1)
-
-    # if offset
-    #   # Offset padding
-    #   _, hours, mins = *offset.match(/\A([+-]?\d{1,2})(\d{0,2})?\z/)
-    #   offset = format('%+03d%02d', hours.to_i, mins.to_i)
-    # else
-    #   offset = '+0000'
-    # end
-
-    # date << " #{offset}"
-    # Time.parse(date)
-
   end
 
   def build_account(node)
@@ -131,5 +115,3 @@ class MyOfx
   end
 
 end
-
-
