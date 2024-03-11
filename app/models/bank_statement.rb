@@ -23,6 +23,16 @@ class BankStatement < ApplicationRecord
     self.bank = Bank.new(self.statement_date).reconcile(self)
   end
 
+  def transactions
+    range = Ledger.statement_range(self.statement_date)
+    transactions = self.book.bank_transactions.where(post_date:range).order(:post_date).reverse
+  end
+
+  def entries
+    entries = []
+    self.transactions.each{|t| entries << t.entry}
+    entries 
+  end
 
   # def split_strip(s)
   #   s.blank? ? '' : s.split("\r\n").first.strip

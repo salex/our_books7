@@ -87,8 +87,11 @@ div.mt-2.mx-2.h-full.pb-12[data-controller="entryLedger"]
         div style="float:right;"
           span.balanced[data-entryLedger-target='balanced'] Start
 
-        - if @entry.reconciled?
-          h4.font-bold.text-2xl.text-red-500 Entry has been reconciled and can't be changed. Use a transfer entry if there was a problem/mistake
+        - if @entry.reconciled? && !params[:unreconcile].present?
+          h4.font-bold.text-2xl.text-red-500 
+            span Entry has been reconciled and can't be changed. 
+            br
+            span Use a transfer entry if there was a problem/mistake.
 
         - else
           button.bg-w3red.hover:text-white.rounded.p-3.text-xl.font-bold.mt-2[data-entryLedger-target='submit' data-action="click->entryLedger#submitForm" disabled="disabled"] = "#{action_name == 'edit' ? 'Update' : 'Create'} Entry"
