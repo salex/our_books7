@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :post, only: [:index] do
       member do 
         get :voucher
+        get :quarter
       end
         
     end

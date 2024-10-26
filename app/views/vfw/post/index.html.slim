@@ -17,6 +17,8 @@ div
       div[class="bg-yellow-200"]
         .strong.indent VFW Reports
         .gbtn.w-full.text-center = link_to "Month Voucher Report",voucher_vfw_post_path(Date.today.last_month)
+        .gbtn.w-full.text-center = link_to "Quarter Voucher Report",quarter_vfw_post_path(Date.today.last_month)
+
       / .w3-bar-item
       /   button.gbtn.w-full Trustee Audit PDF
       / .w3-bar-item
