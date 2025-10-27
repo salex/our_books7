@@ -16,7 +16,7 @@
   .col-span-12.border
     - fc = @audit.assets.funds
 
-    table.classic.w-full.fs8
+    table.classic.w-full.fs7
       tr
         th.font-bold.w-2/6 FUNDS - Current Assets 
         th.fs6.w-1/6 6. Net Cash Balances at Beginning of Quarter
@@ -56,7 +56,7 @@
 
   .col-span-6.border.px-2
     div.font-bold.border-b-2 12. OPERATIONS
-    div.table.w-full.fs8
+    div.table.w-full.fs7
       - rows = @audit.config.operations
       - rows.each do |r|
         - r[1] = money(r[1],'$') if r[1].class == Integer
@@ -67,7 +67,7 @@
         
   .col-span-6.px-2
     div.font-bold.border.px-2= "#{fc+10}. RECONCILIATION OF FUND BALANCES"
-    .flex.flex-wrap.border.px-2.fs8
+    .flex.flex-wrap.border.px-2.fs7
       - ab = @audit.config.checking.balance - @audit.config.checking.outstanding
       - t1 = ab+ @audit.assets.bcash
       - bond = @audit.assets.bsave
@@ -114,14 +114,14 @@
     div = @audit.config.qm.city
 
   .col-span-7.text-center.fs8
-    div.mb-4 Signed _____________________________________ Trustee
+    div.mb-4 Signed _________________________________ Trustee
     br
-    div.mb-4 Signed _____________________________________ Trustee
+    div.mb-4 Signed _________________________________ Trustee
     br
-    div.mb-4 Signed _____________________________________ Trustee
+    div.mb-4 Signed _________________________________ Trustee
   .col-span-12
     div.fs8 
       | This is to certify that the Office of the Quartermaster is Bonded with <strong><u> #{@audit.config.bond.name} </u></strong> in the amount of <strong><u> $#{money(@audit.config.bond.amount)} </u></strong> until <strong><u> #{@audit.config.bond.to} </u></strong>, and that this Audit is correctly made out to the best of my knowledge and belief.
 
-    div.text-right.mt-4.mr-12.fs8 Signed _____________________________________ Commander
+    div.text-right.mt-4.mr-12.fs8 Signed _________________________________ Commander
 

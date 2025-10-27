@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 // this is a little overkill, but you can use it to toggle 1 to n elements with a class
   connect() {
-    console.log("got a toggler")
+    // console.log("got a toggler")
   }
 
   toggleChild() {

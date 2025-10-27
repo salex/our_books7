@@ -67,7 +67,6 @@ class EntriesController < ApplicationController
   # PATCH/PUT /entries/1.json
   def update
     respond_to do |format|
-      puts entry_params
       if @entry.valid_params?(entry_params) && @entry.update(entry_params)
         format.html { redirect_to redirect_path, notice: 'Entry was successfully updated.' }
         format.json { render :show, status: :ok, location: @entry }

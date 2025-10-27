@@ -21,10 +21,12 @@
 .w3-card,.w3-card-2{box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}
 .w3-animate-right{position:relative;animation:animateright 0.4s}@keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}
 .nopointer {  pointer-events: none; }
+
 dl dd{
   display:inline-block;
   margin-left: 8px;
 }
+
 dl dt{
   font-weight: bold
 }
@@ -36,7 +38,8 @@ dl dt{
    text-align: right;
    margin-right: 8px;
 }
- .show-fields label.half, .form-fields label.half, .field label.half {
+
+.show-fields label.half, .form-fields label.half, .field label.half {
    width: 40%;
 }
 
@@ -52,10 +55,9 @@ dl dt{
 .goldey:hover {
   font-weight: bold;
   background-color: #666;
-
 }
 
- .strong {
+.strong {
    font-weight: bold;
 }
 
@@ -70,13 +72,14 @@ dl dt{
    color: #000;
    background-color: #bbb;
 }
+
 .fs8 {
    font-size: 80%;
 }
+
 .fs6 {
    font-size: 60%;
 }
-
 
 p{
   font-size: 16px;
@@ -88,17 +91,21 @@ ul, ul.slim, ul.classic {
   list-style-type: disc;
   padding-left: 1rem;
 }
+
 .strong{ 
   font-weight:bold;
 }
+
 .h6 {
   font-weight: bold;
   font-size: 14pt;
 }
+
 .h5 {
   font-weight: bold;
   font-size: 16pt;
 }
+
 .h4 {
   font-weight: bold;
   font-size: 18pt;
@@ -108,10 +115,12 @@ ul, ul.slim, ul.classic {
   font-weight: bold;
   font-size: 20pt;
 }
+
 .h2 {
   font-weight: bold;
   font-size: 22pt;
 }
+
 .h1 {
   font-weight: bold;
   font-size: 23pt;
@@ -120,6 +129,7 @@ ul, ul.slim, ul.classic {
 .w2in {
   width: 2.1in;
 }
+
 .w1in {
   width: 1.1in;
 }
@@ -131,90 +141,111 @@ ul, ul.slim, ul.classic {
 .tright {text-align: right;}
 
 tbody.split-rows {display:none}
+
 table.classic {
   border-collapse: collapse;
-/*  width: 100%;
-*/}
+}
 
 table.classic tr:nth-of-type(even) {
   background-color: #f0ece2;
 }
+
 table.classic td, table.classic th {
   padding: 0.2rem;
   margin: 0;
   border: solid 1px #aaa;
 }
+
 table.classic th {
   padding: 0.2rem;
   margin: 0;
   border-top: solid 2px #888;
 }
+
 table.classic td.actions a {
   padding-right: 2rem !important;
 }
+
 table.classic td.p0, .p0 {
   padding-left: 0rem;
 }
+
 table.classic td.p1, .p1 {
   padding-left: 1rem;
 }
+
 table.classic td.p2, .p2 {
   padding-left: 2rem;
 }
+
 table.classic td.p3, .p3 {
   padding-left: 3rem;
 }
+
 table.classic td.p4, .p4{
   padding-left: 4rem;
 }
+
 table.classic td.p5, .p5 {
   padding-left: 5rem;
 }
-
 
 table.gl-table {
    border-collapse: collapse;
    width: 100%;
 }
- table.gl-table tr {
+
+table.gl-table tr {
    background-color: #ffc !important;
 }
- table.gl-table tr.entry-row {
+
+table.gl-table tr.entry-row {
    background-color: #c7c7ff !important;
 }
- table.gl-table tr.header-row {
+
+table.gl-table tr.header-row {
    background-color: #e4ffc9 !important;
 }
- table.gl-table tr.deleted-row {
+
+table.gl-table tr.deleted-row {
    background-color: #fcc !important;
 }
- table.gl-table .required {
+
+table.gl-table .required {
    background-color: #d2f8d2;
 }
- table.gl-table td, table.gl-table th {
+
+table.gl-table td, table.gl-table th {
    padding: 0.2rem;
    margin: 0;
    border: solid 1px #aaa;
 }
- table.gl-table .actions a {
+
+table.gl-table .actions a {
    padding-right: 5px;
 }
- table.gl-table .p0 {
+ 
+table.gl-table .p0 {
    padding-left: 0rem;
 }
- table.gl-table .p1 {
+ 
+table.gl-table .p1 {
    padding-left: 1rem;
 }
- table.gl-table .p2 {
+
+table.gl-table .p2 {
    padding-left: 2rem;
 }
- table.gl-table .p3 {
+ 
+table.gl-table .p3 {
    padding-left: 3rem;
 }
- table.gl-table .p4 {
+
+table.gl-table .p4 {
    padding-left: 4rem;
 }
- table.gl-table .p5 {
+ 
+table.gl-table .p5 {
    padding-left: 5rem;
 }
 
@@ -225,10 +256,12 @@ table.gl-table {
    margin-right: 4px;
    font-weight: bold;
 }
+
 .gold-link-button:hover {
    background-color: green;
    color: #eee !important;
 }
+
 .blue-link {
    color: #00c;
 }
@@ -244,18 +277,21 @@ table.gl-table {
 label {font-weight: bold;}
 
 .bg-w3green{
-
   background-color: #4CAF50;
 }
+
 .bg-w3red{
   background-color: #f44336;
 }
+
 .bg-success{
   background-color: #63ed7a;
 }
+
 .bg-orange{
   background-color: #ffa500;
 }
+
 span.annotate, div.annotate, dd.annotate, dl.annotate, li.annotate, p.annotate {
  font-style: italic;
  font-size: 80%;
@@ -263,7 +299,3 @@ span.annotate, div.annotate, dd.annotate, dl.annotate, li.annotate, p.annotate {
  font-weight: normal;
 }
 
-
-\   display: inline-block;
-   width: 85%;
-   te*/

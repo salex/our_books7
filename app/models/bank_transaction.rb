@@ -43,4 +43,11 @@ class BankTransaction < ApplicationRecord
     end
     options 
   end 
+
+  def get_bank_statement
+    eom = post_date.end_of_month
+    bom = eom.beginning_of_month
+    bs  = BankStatement.find_by(statement_date:bom..eom)
+  end
+
 end

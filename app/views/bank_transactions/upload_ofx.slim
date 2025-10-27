@@ -7,13 +7,15 @@ div
       li Click the 'Preview OFX Tranasctions' button which will upload the file and present a list bank transactions and a summary.
       li If and bank tranasctions are new, click the button "Import OFX" to create new transactions
       li = session[:latest_ofx_path]
-  .flex
+  .flex  
+    / = form_with url: :update_transactions_bank_statements, method: :patch,data:{turbo:false,controller:'fileupload'} do |f|
+
     = form_with url: :update_ofx_bank_transactions, method: :patch,data:{turbo:false,controller:'fileupload'} do |f|
       .field
         h5.h5 Pick OFX file
         = f.file_field "ofx",data:{fileupload_target:"file",action:"change->fileupload#toggle"}
 
       br
-      = submit_tag "Preview OFX Transactions", class:"#{btn_sm_green} hidden",data:{fileupload_target:"submit"}
+      = submit_tag "Preview OFX Transactions", class:"#{btn_sm_green} ",data:{fileupload_target:"submit"}
 
 

@@ -1,8 +1,6 @@
 class Account < ApplicationRecord
   belongs_to :book
-  # belongs_to :client
   acts_as_tenant(:client)
-  # acts_as_tenant(:book)
 
   # belongs_to :book
   has_many :splits, dependent: :destroy
@@ -49,7 +47,6 @@ class Account < ApplicationRecord
     # if self has children it will be array [:id,e0.id, e1.id, etc]
     self.family.pluck(:id) << self.id
   end
-
 
   def walk_tree(level,new_tree)
     self.level = level
@@ -109,13 +106,11 @@ class Account < ApplicationRecord
   
   def children
     self.book.accounts.where(parent_id:self.id).order(:name)
-
   end
 
   def has_children?
     !children.blank?
   end
-
 
   def family
     kids = children
@@ -134,42 +129,6 @@ class Account < ApplicationRecord
     end
     branch_array
   end
-
-  # def long_account_name1(reverse=false)
-  #   account_name = self.name
-  #   the_parent = self.parent 
-  #   while the_parent.present? && the_parent.account_type != 'ROOT'
-  #     if reverse
-  #       account_name = account_name + ":" + the_parent.name
-  #     else
-  #       account_name = the_parent.name + ":" + account_name
-  #     end
-  #     the_parent = the_parent.parent
-  #   end
-  #   # for data_lookup
-  #   account_name = "#{account_name}[#{self.id}]" if reverse
-  #   return account_name
-  # end
-
-=begin Balances
-  There are twp types of balances
-  balance = balance (sum of all split) for only the account
-  family_balance = balance for the account (only if account is not a placeholder) and the all decendents
-
-  each of the balances have extensions
-  on(date) or ending balances on the date (entries.post_date <= date)
-  before(date) or beginning balances an the date (entries.post_date < date)
-
-
-  there are some alias methods link beginning .. ending 
-
-  By default: if an account has children, you can't create and entry using that account under normal circumstances
-  If you decide to split an account and don't place it under a new parent there could be entries in a placeholder
-  this is allowed in gnucash, I don't allow anyting to be added, but entries that exist and will balance
-  
-  For this reason, family balances always include and slits assiged the the parent/placeholder
-=end
-
 
   def balance
     bal = self.splits.sum(:amount)  * self.flipper
@@ -345,83 +304,5 @@ class Account < ApplicationRecord
         checking:{db:debits,cr:credits},details:[], memo:nil,r:nil,balance:diff}
     lines << summary
   end
-
-  # def parent
-  #   self.find(self.parent_id) unless root_account?
-  # end
-
-  # def children_summary(from,to)
-  #   id = self.id
-  #   tsum  = self.summary(from,to)
-  #   summary = {id => tsum}
-  #   self.children.each do |c|
-  #     csum = c.summary(from,to)
-  #     summary[id][:children][c.id] = csum
-  #     summary[id][:beginning] += csum[:beginning]
-  #     summary[id][:debits] += csum[:debits]
-  #     summary[id][:credits] += csum[:credits]
-  #     summary[id][:diff] += csum[:diff]
-  #     summary[id][:ending] += csum[:ending]
-  #   end
-  #   summary
-  # end
-  # most  these below balances are no longer used
-    #What the used to do has been replaced by the summary methods (child family)
-
-    # def balance_between(from,to)
-    #   from = Ledger.set_date(from)
-    #   to = Ledger.set_date(to)
-    #   self.splits.joins(:entry).where(entries: {post_date:[from..to]}).sum(:amount) * self.flipper
-    # end
-
-
-    # def children_balance
-    #   bal = 0
-    #   self.children.each do |child|
-    #     bal += child.balance
-    #   end
-    #   bal
-    # end
-
-    # def children_balance_on(date)
-    #   date = Ledger.set_date(date)
-    #   bal = 0
-    #   self.children.each do |child|
-    #     bal += child.balance_on(date)
-    #   end
-    #   bal
-    # end
-
-    # def children_balance_between(from,to)
-    #   from = Ledger.set_date(from)
-    #   to = Ledger.set_date(to)
-    #   bal = 0
-    #   self.children.each do |child|
-    #     bal += child.balance_between(from,to)
-    #   end
-    #   bal
-    # end
-
-    # alias closing_children_balance_on children_balance_on
-
-  # def family_balance_between(from,to)
-  #   date = Ledger.set_date(date)
-  #   bal = balance_between(from,to)
-  #   bal += family_child_balance_between(from,to)
-  # end
-
-
-  # def family_child_balance_between(from,to)
-  #   from = Ledger.set_date(from)
-  #   to = Ledger.set_date(to)
-  #   bal = 0
-  #   self.children.each do |child|
-  #     bal += child.balance_between(from,to)
-  #     bal += child.family_child_balance_between(from,to)
-  #   end
-  #   bal
-  # end
-
-  
 
 end

@@ -35,6 +35,16 @@ class Book < ApplicationRecord
     return self.settings
   end
 
+  def checking_cleared_splits
+    Split.where(account_id:self.checking_ids).where(reconcile_state:'c')
+  end
+
+  def checking_voided_splits
+    Split.where(account_id:self.checking_ids).where(reconcile_state:'v')
+  end
+
+
+
   def rebuild_settings
     new_settings = {}
     checking = self.checking_acct
@@ -68,6 +78,31 @@ class Book < ApplicationRecord
       end
     end
     new_tree
+  end
+
+  # The next two methods (make_tree and export_account) 
+  # are only used in creating a new version of my books
+  def make_tree
+    root_acct = self.root_acct
+    family = root_acct.family
+    tree = {}
+    family.each do |a|
+      tree[a.id] = {id:a.id,
+        name:a.name,
+        parent_id:a.parent_id,
+        level:a.level,
+        transfer:a.long_account_name,
+        transfer_reverse:a.long_account_name(true)
+      }
+    end
+    return tree
+  end
+
+  def export_accounts
+    accts = self.accounts.order(:id)
+    as_json = accts.as_json(except:[:transfer,:leafs])
+    json = ActiveSupport::JSON.encode(as_json)
+    File.write("/Users/salex/work/rails8/mybooks/app/models/concerns/accounts.json",json)
   end
 
   #helpers to set or get attributes/settings
@@ -112,9 +147,18 @@ class Book < ApplicationRecord
   end
 
   def checking_acct
-    # can be a single account or a placeholder
+    # root account
     self.accounts.find_by(code:'CHECKING')
   end
+
+  def checking_acct_children
+    # returns an array of children[[children.name, children.id],...]
+    arr = self.accounts.where(parent_id:self.accounts.find_by(code:'CHECKING')).pluck(:name,:id)
+    ca = self.checking_acct
+    arr.prepend([ca.name,ca.id])
+    arr
+  end
+
 
   def assets_acct
     self.accounts.find_by(code:'ASSET',parent_id:self.root_acct)
