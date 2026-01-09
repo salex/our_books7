@@ -2,8 +2,8 @@
 lock "~> 3.18.0"
 
 set :application, "our_books"
-set :repo_url,  "ssh://post@stevealex.us:8611/home/post/repo/our_books.git"
-
+# set :repo_url,  "ssh://post@stevealex.us:8611/home/post/repo/our_books.git"
+set :repo_url,  "ssh://git@github.com:salex/our_books7.git"
 # add from past hitory
 set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, File.read('.ruby-version').strip
