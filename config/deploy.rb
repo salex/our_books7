@@ -3,7 +3,7 @@ lock "~> 3.19.2"
 
 set :application, "our_books"
 # set :repo_url,  "ssh://post@stevealex.us:8611/home/post/repo/our_books.git"
-set :repo_url,  "ssh://git@github.com:salex/our_books7.git"
+set :repo_url,  "git@github.com:salex/our_books7.git"
 # add from past hitory
 set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, File.read('.ruby-version').strip
