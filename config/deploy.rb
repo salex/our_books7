@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.18.0"
+lock "~> 3.19.2"
 
 set :application, "our_books"
 # set :repo_url,  "ssh://post@stevealex.us:8611/home/post/repo/our_books.git"
