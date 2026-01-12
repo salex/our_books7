@@ -176,7 +176,15 @@ class Account < ApplicationRecord
     bal
   end
 
-  # Summaries and ledgers
+  # Summaries and ledgers NOT USED
+
+  # def audit_summary
+  #   # use when the quarter has changed
+  #   bolq = Date.today.beginning_of_quarter - 3.months
+  #   eolq = bolq.end_of_quarter
+  #   root =  family_summary(bolq,eolq)
+  #   root
+  # end
 
   def family_summary(from,to)
     id = self.id

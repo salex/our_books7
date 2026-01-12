@@ -8,17 +8,19 @@ module AuditHelper
   end
 
   def get_assets(summary)
-    pcash = checking = savings = total = nil
+    pcash = checking = savings = investment = total = nil
     summary.each do |k,v|
       pcash = v if v[:name] == 'Cash'
       checking =  v if v[:name] == 'Checking'
       savings =  v if v[:name] == 'Savings'
+      investment =  v if v[:name] == 'Investment'
       total = v if v[:name] == 'Current'
     end
     bsave = savings[:ending]
     bcash = pcash[:ending]
     btotal = total[:ending]
     bcheck = checking[:ending]
+    binvest = investment[:ending]
 
     funds = checking[:children].count
 
@@ -30,6 +32,7 @@ module AuditHelper
       bcash:bcash,
       btotal:btotal,
       bcheck:bcheck,
+      binvest:binvest,
       funds:funds})
   end
 

@@ -11,7 +11,6 @@ class Vfw::TrusteeAudit < Prawn::Document
     @range = taudit.range
     @config = taudit.config
     @summary = taudit.summary
-
     make_pdf
   end
 
@@ -65,17 +64,21 @@ class Vfw::TrusteeAudit < Prawn::Document
   def assets
 
     grid([4,0], [10,23]).bounding_box do
-      cash = checking = savings = total = nil
+      cash = checking = savings = investment = total = nil
       @summary.each do |k,v|
         cash = v if v[:name] == 'Cash'
         checking =  v if v[:name] == 'Checking'
         savings =  v if v[:name] == 'Savings'
         total = v if v[:name] == 'Current'
+        investment =  v if v[:name] == 'Investment'
+
       end
       @save = savings[:ending]
       @cash = cash[:ending]
       @total = total[:ending]
       @check = checking[:ending]
+      @invest = investment[:ending]
+
 
       @funds = checking[:children].count
       font_size(9)
@@ -158,7 +161,7 @@ class Vfw::TrusteeAudit < Prawn::Document
   end
 
   def operations
-    grid([12,0], [20,12]).bounding_box do
+    grid([10,0], [20,12]).bounding_box do
       font_size(8)
 
       move_down 5
@@ -183,7 +186,7 @@ class Vfw::TrusteeAudit < Prawn::Document
     end
   end
   def reconcile
-    grid([12,13], [18,23]).bounding_box do
+    grid([10,13], [18,23]).bounding_box do
       move_down 5
       text "#{@funds+10}.    RECONCILIATION OF FUND BALANCES", size:10, style: :bold
       stroke_horizontal_rule
@@ -199,9 +202,9 @@ class Vfw::TrusteeAudit < Prawn::Document
       diff = t2 - @total
       tot_label = diff.zero? ? "Total" : "Out of Balance (#{money(diff)}) - Total"
       rows << [{content:'Actual Balance', align: :right, colspan: 2},{content:money(ab),align: :right}]
-      rows << [{content:'Savings Account Balance', align: :right, colspan: 2},{content:money(0),align: :right}]
+      rows << [{content:'Savings Account Balance', align: :right, colspan: 2},{content:money(@save - @invest),align: :right}]
       rows << [{content:'Cash on Hand', align: :right, colspan: 2},{content:money(@cash),align: :right}]
-      rows << [{content:'Total', align: :right, colspan: 2},{content:money(t1),align: :right}]
+      rows << [{content:'Total', align: :right, colspan: 2},{content:money(t2 - @invest),align: :right}]
       rows << [{content:'Bonds and Investments (cost value)', align: :right, colspan: 2},{content:money(@save),align: :right}]
       rows << [{content:tot_label, align: :right, colspan: 2},{content:money(t2),align: :right, text_color: (!diff.zero? ? 'FF0000' : '000000')}]
       indent 2,2 do
@@ -248,7 +251,6 @@ class Vfw::TrusteeAudit < Prawn::Document
     end
 
     grid([23,11], [26,23]).bounding_box do
-
 
       move_down 14
       text "Signed _____________________________________ Trustee"
